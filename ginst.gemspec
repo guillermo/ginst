@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ginst}
-  s.version = "2.0.0"
+  s.version = "2.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Guillermo \303\201lvarez Fern\303\241ndez"]
@@ -113,6 +113,10 @@ Gem::Specification.new do |s|
      "lib/ginst/web_server.rb",
      "lib/tasks/ginst.rake",
      "log/.gittouch",
+     "log/development.log",
+     "log/production.log",
+     "log/staging.log",
+     "log/test.log",
      "public/404.html",
      "public/422.html",
      "public/500.html",
