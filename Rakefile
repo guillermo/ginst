@@ -20,6 +20,10 @@ begin
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "cucumber", ">= 0"
     gem.add_dependency "sys-proctable"
+    gem.add_dependency "mime-types"
+    gem.add_dependency "mongrel"
+    gem.add_dependency "rspec"
+    
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
