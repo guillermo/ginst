@@ -1,0 +1,12 @@
+<h1>Builder Daemon Status</h1>
+<p><%= @builder_daemon_status %></p>
+
+<h1>Current plugins</h1>
+<ul>
+<% @plugins.each do |plugin| %>
+  <%= content_tag :li,  plugin.name %>
+<% end %>
+</ul>
+
+<h1>WebServer Environment</h1>
+<p><%= @environment %></p>

@@ -1,0 +1,10 @@
+<% content_for :submenu do %>
+<ul class="tabs">
+  <li><%= link_to_unless params[:scope]=='prepared', 'Waiting', "?scope=prepared" %></li>
+  <li><%= link_to_unless params[:scope]=='finished', 'Finished', "?scope=finished" %></li>
+  <li><%= link_to_unless params[:scope]=='building', 'Building', "?scope=building" %></li>
+</ul>
+<% end %>
+<ul>
+<%= render :partial => 'task', :collection => @tasks %>
+</ul>

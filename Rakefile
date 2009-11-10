@@ -1,5 +1,11 @@
-require 'rubygems'
+require(File.join(File.dirname(__FILE__), 'config', 'boot'))
+
 require 'rake'
+require 'rake/testtask'
+require 'rake/rdoctask'
+
+require 'tasks/rails'
+
 
 begin
   require 'jeweler'
@@ -8,11 +14,12 @@ begin
     gem.summary = %Q{Git Integration System}
     gem.description = %Q{GINST is the new integration system}
     gem.email = "guillermo@cientifico.net"
-    gem.homepage = "guillermo.github.com/ginst"
+    gem.homepage = "http://guillermo.github.com/ginst"
     gem.authors = ["Guillermo Álvarez Fernández"]
     gem.rubyforge_project = "ginst"
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_development_dependency "cucumber", ">= 0"
+    gem.add_dependency "sys-proctable"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

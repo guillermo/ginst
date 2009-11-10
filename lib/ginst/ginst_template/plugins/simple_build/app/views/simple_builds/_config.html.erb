@@ -1,0 +1,4 @@
+<% form_tag project_simple_builds_path(@project), :method => :post do %>
+<%= text_area_tag('build', SimpleBuildConf.new(@project.slug).build , :style => 'width: 100%; min-height: 300px;') %>
+<%= submit_tag 'Update build' %>
+<% end %>

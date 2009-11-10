@@ -1,0 +1,5 @@
+--- 
+default: 
+  build: rake
+jobandtalent: 
+  build: exit 0

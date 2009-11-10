@@ -1,0 +1,24 @@
+
+<%# It should update status based on diferent @task.status and update all the window. %>
+
+<% if %w(building prepared).include? @task.status %>
+
+o = $('#output')[0]
+var total_scroll = o.scrollHeight - o.clientHeight
+var current_scroll = o.scrollTop
+
+$('#output').html('<%= escape_javascript(@task.parsed_output) %>')
+
+if (total_scroll == current_scroll) {
+  o.scrollTop = o.scrollHeight - o.clientHeight
+}
+
+
+
+function reload(){
+  $.getScript("<%= project_task_path(@project,@task) %>")
+}
+var t = setTimeout("reload();",2000)
+<% else %>
+window.location.reload();
+<% end %>

@@ -1,0 +1,35 @@
+<% build = SimpleBuild.find_by_commit_sha1(commit.id) %>
+
+<% content_tag_for :li, commit do %>
+  <% if build %>
+  <pre><%= link_to commit.short_message, project_commit_path(@project, commit.id) %></pre>
+  <img src="<%= gravatar_url_for(commit) %>">
+  <p>
+    <strong><%= commit.author.name  %></strong> (author)<br/>
+    <em><%= commit.committed_date.to_s(:short) %></em>
+    
+    <% task = @project.tasks.for_commit(commit.id).first %>
+    <% if task %>
+      <%= link_to "Build status: #{task.status}", project_task_path(@project,task), :class => task.status %>
+    <% else %>
+      <% form_for commit, :url => project_commit_path(@project, commit) do |f| %>
+        <button type="submit">build!</button>
+      <% end %>
+    <% end %>
+  </p>
+  <dl>
+    <dt>sha1</dt>
+    <dd><pre><%= commit.id %></pre></dd>
+    
+    <% commit.parents.each do |parent| %>
+    <dt>parent</dt>
+    <dd><pre><%= parent.id %></pre></dd>
+    <% end %>
+    
+    <dt>tree</dt>
+    <dd><pre><%= commit.tree.id %></pre></dd>
+  </dl>
+  <% else %>
+  <%= commit.short_message %>
+  <% end %>
+<% end %>

@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<title>Ginst</title>
+
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="author" content="Guillermo Álvarez <guillermo.alvarez@jobandtalent.com>" />
+<meta name="description" content="Git Integration System" />
+<meta name="keywords" content="git integration system" />
+<meta name="robots" content="index, follow, noarchive" />
+<meta name="googlebot" content="noarchive" />
+
+<link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print" charset="utf-8">
+<!--[if lte IE 6]><link rel="stylesheet" href="/stylesheets/lib/ie.css" type="text/css" media="screen" charset="utf-8"><![endif]-->
+
+</head>
+
+<body>
+  <div id="page">
+    <div id="header">
+      <h1>Ginst</h1>
+      <ul class="tabs">
+        <li><%= link_to 'Projects', projects_path %></li>
+        <li><%= link_to 'Status', status_path %></li>
+      </ul>
+    </div>
+
+    <div id="body" class="wrapper">
+      <%= yield %>
+    </div>
+
+
+    <!-- <div id="footer">
+      <ul class="tabs">
+        <li><a href="#">Lorem</a></li>
+        <li><a href="#">Ipsum</a></li>
+        <li><a href="#">Dolor</a></li>
+        <li><a href="#">Consectetur</a></li>
+        <li><a href="#">Eiusmod</a></li>
+      </ul> -->
+
+      <p class="quiet"><small>Ginst Project</small></p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<h1>New project</h1>
+
+<% form_for @project do |f| %>
+	<%= f.error_messages %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+	<br />
+  
+	<%= f.label :repo %>
+	<%= f.text_field :repo %>
+  	<br />  
+	<%= f.submit %>
+<% end %>
+
+	

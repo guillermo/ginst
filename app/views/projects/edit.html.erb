@@ -1,0 +1,78 @@
+<%= error_messages_for 'project' %>
+
+<% form_for @project do |f| %>
+<fieldset>
+  <legend>Preferences</legend>
+
+  <% f.fields_for :preferences do |preferences| %>
+    <%= preferences.label :tracking_branches  %>
+    <%= preferences.text_field :tracking_branches, :value => @project.preferences.tracking_branches %>
+    <p>Available branches: <%= @project.heads.map(&:name).to_sentence %></p>
+  <% end %>
+  
+  <%= f.submit %>
+</fieldset>  
+<% end %>
+
+
+<fieldset>
+  <legend>Ssh public keys</legend>
+  <% unless Ginst::Ssh.public_keys.empty? %>
+  <dl>
+    <% Ginst::Ssh.public_keys.each do |key| %>
+      <dt><%= key[0] %></dt>
+      <dd><pre><%= key[1] %></pre></dd>
+    <% end %>
+  </dl>
+  <% end %>
+</fieldset>
+
+<% form_for @project do |f| %>
+<fieldset>
+  <legend>Fetch url</legend>
+  <% f.fields_for :preferences do |preferences| %>
+  <%=  preferences.hidden_field :secret, :value => @project.random_secret %>
+    
+  <% end %>
+  <%= f.submit 'Generate new secret' %>
+  <dl>
+    <dt>POST</dt>
+    <dd><%= project_commits_url(@project, :secret => @project.secret )%></dd>
+    <dt>GET</dt>
+    <dd><%= project_commits_url(@project, :secret => @project.secret )%></dd>
+  </dl>
+</fieldset>
+<% end %>
+
+
+<fieldset>
+  <legend>Plugins</legend>
+  <ul>
+  <% @project.plugins.each do |plugin| %>
+<li>  <%= plugin.to_s %></li>
+  <% end %>
+  </ul>
+</fieldset>
+
+
+
+<% @project.plugins.each do |plugin| %>
+<% if plugin.config_partial %>
+<fieldset>
+  <legend><%= plugin.name %> Options</legend>
+  <%= render :partial => plugin.config_partial %>
+  </fieldset>
+<% end %>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+

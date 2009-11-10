@@ -1,0 +1,29 @@
+<% content_tag_for(:li, task, :class=> task.status) do %>
+<pre><%= link_to task.name, project_task_path(@project, task) %></pre>
+  <p><%= simple_format(h(truncate(task.output))) %></p>
+  <dl>
+    <dt>Command:</dt>
+    <dd><%= truncate(task.code,:length => 35) %></dd>
+
+    <dt>created_at</dt>
+    <dd><%= show_time(task.created_at) %></dd>
+    <dt>started_at</dt>
+    <dd><%= show_time(task.started_at) %></dd>
+    
+    <dt>ended_At</dt>
+    <dd><%= show_time(task.ended_at) %></dd>
+    
+    <dt>status</dt>
+    <dd><%= task.status %></dd>
+    
+<!--     <dt>output</dt>
+    <dd><pre><code><%= simple_format(task.output) %></code></pre></dd>
+    
+    <dt>exit_code</dt>
+    <dd><%= task.exit_code %></dd> -->
+  </dl>
+  <!-- <% form_for task, :url => project_task_path(task.project, task) do |f| %>
+  <%= f.submit 'ReRun' %>
+  <% end %> -->
+<% end %>
+      

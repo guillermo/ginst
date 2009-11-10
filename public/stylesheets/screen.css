@@ -1,0 +1,449 @@
+/* @override 
+	http://localhost:3000/stylesheets/screen.css
+	http://dev.jobandtalent.com/stylesheets/screen.css
+*/
+
+/* @group Reset */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: x-small;
+  font-variant: normal;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.5em;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* @end */
+
+/* @group Site */
+
+ul.tabs {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+ul.tabs li {
+  float: left;
+  list-style: none;
+  margin: 0 5px;
+  padding: 0;
+}
+
+ul.tabs li a {
+  float: left;
+  display: block;
+}
+
+#page {
+  margin: 0 auto;
+  width: 95em;
+  overflow: hidden;
+}
+
+#page > p {
+	clear: both;
+}
+
+/* @end */
+
+/* @group Header */
+
+#header {
+  margin-top: 20px;
+}
+
+#header .tabs {
+  border-bottom: 1px solid #ddd;
+}
+
+#header .tabs li {
+  margin-right: 1px;
+  font-size: 1.2em;
+}
+
+#header .tabs a {
+  padding: 5px 15px;
+  background: #ddd;
+  color: #666;
+  text-decoration: none;
+}
+
+#heads.tabs li {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+#header h1 {
+  font-size: 10em;
+  overflow: hidden;
+  line-height: 1em;
+}
+
+/*
+
+@end */
+
+/* @group My Group */
+
+#body {
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+#introduction {
+  float: left;
+  width: 480px;
+  margin-right: 130px;
+}
+
+#resources {
+  float: left;
+  width: 230px;
+}
+
+#resources h3 {
+  color: #888;
+}
+
+#resources ul, #resources ol {
+  color: #888;
+}
+
+#resources ul a {
+  color: #555;
+}
+
+pre {
+  font-family: Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+   white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;
+}
+
+dl, dl dt, dl dd {
+	overflow: show;
+	width: 100%;
+}
+
+dl dt {
+	font-weight: bold;
+}
+dl dt:after{
+	content: ":";
+}
+
+dl dd {
+	margin-left: 1em;
+	margin-bottom: 1em;
+}
+
+dl dd pre {
+	padding-right: 1em;
+}
+
+fieldset{
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  padding: 1em;
+  width: 43.1em;
+  margin: 1em;
+  float:left;
+}
+fieldset legend{
+	font-size: 1.2em;
+	font-weight: bold;
+	padding:  0.5em;
+}
+fieldset dt{
+	float:  left;
+	clear:  left;
+}
+
+fieldset dd{
+	
+	float: left;
+}
+
+/* @end */
+
+/* @group Item list */
+
+ul li {
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 0.8em;
+  position: relative;
+  overflow: hidden;
+  font-size: 1.3em;
+  list-style: none;
+  border: 0.1em solid rgb(222,222,222);
+  background: rgb(235,235,235);
+}
+
+#body ul li p {
+  margin: 0.2em 0 0 3em;
+}
+
+#body ul li dl {
+  top: 0em;
+  right: 0em;
+  width: 28em;
+  position: absolute;
+  padding: 0.5em;
+  margin-bottom: -0.2em;
+  color: gray;
+}
+
+#body li dl dt {
+  float: left;
+  clear: left;
+  font-weight: bolder;
+  width: 6em;
+}
+
+#body li dl dd {
+  float: left;
+  width: 20em;
+  font-family: Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+}
+
+#body li dl dd pre {
+  padding: 0em;
+  margin: 0em;
+}
+
+/* @end */
+
+/* @group Commit */
+
+#body ul li.grit_commit {
+  border: 0.1em solid rgb(190, 220, 231);
+  background: rgb(234, 242, 245);
+}
+
+.grit_commit dl {
+  border-left: 0.1em solid rgb(190, 220, 231);
+}
+
+.grit_commit  pre {
+  width: 50em;
+  white-space: normal;
+  margin-bottom: 0.5em;
+}
+
+.grit_commit pre a {
+  color: black;
+  text-decoration: none;
+}
+
+.grit_commit pre a:hover {
+  text-decoration: underline;
+}
+
+.grit_commit img {
+  float: left;
+  padding: 0.2em;
+  background: white;
+  width: 30px;
+  height: 30px;
+}
+
+.grit_commit p a.prepared {
+  background: url('/images/task_prepared_small.png');
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 16px;
+}
+
+.grit_commit p a.success {
+  background: url('/images/task_win_small.png');
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 16px;
+}
+
+.grit_commit p a.fail {
+  background: url('/images/task_fail_small.png');
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 16px;
+}
+
+/* @end */
+
+/* @group Task#Show */
+
+div.task {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 0.8em;
+  position: relative;
+  overflow: hidden;
+  font-size: 1.3em;
+  list-style: none;
+  border: 0.1em solid rgb(222,222,222);
+  background: rgb(235,235,235);
+}
+
+div.task h1 {
+  margin-bottom: 1em;
+}
+
+.task_description {
+  background: black;
+  color: gray;
+  padding: 0.5em;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 0.5em;
+  border-radius: 0.5em;
+}
+
+.task_description dl {
+  overflow: hidden;
+}
+
+.task_description dl dt {
+  float: left;
+  margin: 0;
+}
+
+.task_description dl dd {
+  color: white;
+  float: left;
+  padding-left: 0.5em;
+  padding-right: 1em;
+}
+
+.task_description dl dd span {
+  color: gray;
+}
+
+.task_description dl dd span:before {
+  content: '( ';
+}
+
+.task_description dl dd span:after {
+  content: ' )';
+}
+
+.task_description pre {
+  clear: both;
+}
+
+.task_description #output {
+  display: block;
+  overflow: auto;
+  height: 40em;
+  color: white;
+  background: black;
+  padding: 1em;
+}
+
+.task_description a.raw_link {
+  float: right;
+  color: white;
+  padding-right: 0.5em;
+}
+
+.task p.status {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+}
+
+.task p.status.prepared {
+  background: url('/images/task_prepared.png');
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 2.4em;
+  line-height: 2.4em;
+}
+
+.task p.status.success {
+  background: url('/images/task_win.png');
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 2.4em;
+  line-height: 2.4em;
+}
+
+.task p.status.building {
+  background: url('/images/ajax-loader.gif');
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 2.4em;
+  line-height: 2.4em;
+}
+
+.task p.status.fail {
+  background: url('/images/task_fail.gif');
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 2.4em;
+  line-height: 2.4em;
+}
+
+/* @end */
+
+/* @group Task#list */
+
+.task.fail {
+  border: 0.1em solid rgb(232,190,190);
+  background: rgb(246,234,234);
+}
+
+#body ul li.task.success {
+  border: 0.1em solid rgb(190,232,198);
+  background: rgb(234,246,237);
+}
+
+/* @end */
+
+/* @group Footer */
+
+#footer {
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+}
+
+#footer .tabs {
+  width: 405px;
+  border-top: 3px solid #eee;
+}
+
+#footer .tabs a {
+  padding: 10px 30px 10px 0;
+  color: #666;
+  text-decoration: none;
+}
+
+#footer p.quiet {
+  color: #ccc;
+}
+
+/* @end */

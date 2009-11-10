@@ -1,0 +1,20 @@
+production:
+  adapter: <%= Ginst::Configuration.adapter %>
+  encoding: utf8
+  database: <%= Ginst::Configuration.database %>
+  pool: 5
+  username: <%= Ginst::Configuration.username %>
+  password: <%= Ginst::Configuration.password %>
+  <%- if Ginst::Configuration.host -%>
+  host: <%= Ginst::Configuration.host %>
+  <%- end -%>
+development:
+  adapter: <%= Ginst::Configuration.adapter %>
+  encoding: utf8
+  database: <%= Ginst::Configuration.database %>
+  pool: 5
+  username: <%= Ginst::Configuration.username %>
+  password: <%= Ginst::Configuration.password %>
+  <%- if Ginst::Configuration.host -%>
+  host: <%= Ginst::Configuration.host %>
+  <%- end -%>
