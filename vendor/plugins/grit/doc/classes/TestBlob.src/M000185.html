@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_mime_type_should_return_text_plain_for_unknown_types (TestBlob)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_blob.rb, line 45</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_mime_type_should_return_text_plain_for_unknown_types</span>
+    <span class="ruby-identifier">blob</span> = <span class="ruby-constant">Blob</span>.<span class="ruby-identifier">create</span>(<span class="ruby-ivar">@r</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'abc'</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">&quot;text/plain&quot;</span>, <span class="ruby-identifier">blob</span>.<span class="ruby-identifier">mime_type</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

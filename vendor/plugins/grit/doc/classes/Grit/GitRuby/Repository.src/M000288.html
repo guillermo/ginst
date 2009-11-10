@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>quick_diff (Grit::GitRuby::Repository)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby/repository.rb, line 450</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">quick_diff</span>(<span class="ruby-identifier">tree1</span>, <span class="ruby-identifier">tree2</span>, <span class="ruby-identifier">path</span> = <span class="ruby-value str">'.'</span>, <span class="ruby-identifier">recurse</span> = <span class="ruby-keyword kw">true</span>)
+         <span class="ruby-comment cmt"># handle empty trees</span>
+         <span class="ruby-identifier">changed</span> = []
+         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">changed</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tree1</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">tree2</span>
+
+         <span class="ruby-identifier">t1</span> = <span class="ruby-identifier">list_tree</span>(<span class="ruby-identifier">tree1</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tree1</span>
+         <span class="ruby-identifier">t2</span> = <span class="ruby-identifier">list_tree</span>(<span class="ruby-identifier">tree2</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tree2</span>
+
+         <span class="ruby-comment cmt"># finding files that are different</span>
+         <span class="ruby-identifier">t1</span>[<span class="ruby-value str">'blob'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span>, <span class="ruby-identifier">hsh</span><span class="ruby-operator">|</span>
+           <span class="ruby-identifier">t2_file</span> = <span class="ruby-identifier">t2</span>[<span class="ruby-value str">'blob'</span>][<span class="ruby-identifier">file</span>] <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+           <span class="ruby-identifier">full</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">file</span>)
+           <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">t2_file</span>
+             <span class="ruby-identifier">changed</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">full</span>, <span class="ruby-value str">'added'</span>, <span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>], <span class="ruby-keyword kw">nil</span>]      <span class="ruby-comment cmt"># not in parent</span>
+           <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">t2_file</span>[<span class="ruby-identifier">:sha</span>])
+             <span class="ruby-identifier">changed</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">full</span>, <span class="ruby-value str">'modified'</span>, <span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>], <span class="ruby-identifier">t2_file</span>[<span class="ruby-identifier">:sha</span>]]   <span class="ruby-comment cmt"># file changed</span>
+           <span class="ruby-keyword kw">end</span>
+         <span class="ruby-keyword kw">end</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t1</span>
+         <span class="ruby-identifier">t2</span>[<span class="ruby-value str">'blob'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span>, <span class="ruby-identifier">hsh</span><span class="ruby-operator">|</span>
+           <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">t1</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">t1</span>[<span class="ruby-value str">'blob'</span>][<span class="ruby-identifier">file</span>]
+             <span class="ruby-identifier">changed</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">file</span>), <span class="ruby-value str">'removed'</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>]]
+           <span class="ruby-keyword kw">end</span>
+         <span class="ruby-keyword kw">end</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t2</span>
+
+         <span class="ruby-identifier">t1</span>[<span class="ruby-value str">'tree'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span>, <span class="ruby-identifier">hsh</span><span class="ruby-operator">|</span>
+           <span class="ruby-identifier">t2_tree</span> = <span class="ruby-identifier">t2</span>[<span class="ruby-value str">'tree'</span>][<span class="ruby-identifier">dir</span>] <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+           <span class="ruby-identifier">full</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">dir</span>)
+           <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">t2_tree</span>
+             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">recurse</span>
+               <span class="ruby-identifier">changed</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">quick_diff</span>(<span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>], <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">full</span>, <span class="ruby-keyword kw">true</span>)
+             <span class="ruby-keyword kw">else</span>
+               <span class="ruby-identifier">changed</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">full</span>, <span class="ruby-value str">'added'</span>, <span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>], <span class="ruby-keyword kw">nil</span>]      <span class="ruby-comment cmt"># not in parent</span>
+             <span class="ruby-keyword kw">end</span>
+           <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">t2_tree</span>[<span class="ruby-identifier">:sha</span>])
+             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">recurse</span>
+               <span class="ruby-identifier">changed</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">quick_diff</span>(<span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>], <span class="ruby-identifier">t2_tree</span>[<span class="ruby-identifier">:sha</span>], <span class="ruby-identifier">full</span>, <span class="ruby-keyword kw">true</span>)
+             <span class="ruby-keyword kw">else</span>
+               <span class="ruby-identifier">changed</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">full</span>, <span class="ruby-value str">'modified'</span>, <span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>], <span class="ruby-identifier">t2_tree</span>[<span class="ruby-identifier">:sha</span>]]   <span class="ruby-comment cmt"># file changed</span>
+             <span class="ruby-keyword kw">end</span>
+           <span class="ruby-keyword kw">end</span>
+         <span class="ruby-keyword kw">end</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t1</span>
+         <span class="ruby-identifier">t2</span>[<span class="ruby-value str">'tree'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span>, <span class="ruby-identifier">hsh</span><span class="ruby-operator">|</span>
+           <span class="ruby-identifier">t1_tree</span> = <span class="ruby-identifier">t1</span>[<span class="ruby-value str">'tree'</span>][<span class="ruby-identifier">dir</span>] <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+           <span class="ruby-identifier">full</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">dir</span>)
+           <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">t1_tree</span>
+             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">recurse</span>
+               <span class="ruby-identifier">changed</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">quick_diff</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>], <span class="ruby-identifier">full</span>, <span class="ruby-keyword kw">true</span>)
+             <span class="ruby-keyword kw">else</span>
+               <span class="ruby-identifier">changed</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">full</span>, <span class="ruby-value str">'removed'</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">hsh</span>[<span class="ruby-identifier">:sha</span>]]
+             <span class="ruby-keyword kw">end</span>
+           <span class="ruby-keyword kw">end</span>
+         <span class="ruby-keyword kw">end</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t2</span>
+
+         <span class="ruby-identifier">changed</span>
+       <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

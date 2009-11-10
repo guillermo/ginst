@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>with_idx (Grit::GitRuby::Internal::PackStorage)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby/internal/pack.rb, line 48</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with_idx</span>(<span class="ruby-identifier">index_file</span> = <span class="ruby-keyword kw">nil</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">index_file</span>
+            <span class="ruby-identifier">index_file</span> = <span class="ruby-ivar">@name</span>
+            <span class="ruby-identifier">idxfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-ivar">@name</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-value">-4</span>]<span class="ruby-operator">+</span><span class="ruby-value str">'idx'</span>, <span class="ruby-value str">'rb'</span>)
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">idxfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">index_file</span>, <span class="ruby-value str">'rb'</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-comment cmt"># read header</span>
+          <span class="ruby-identifier">sig</span> = <span class="ruby-identifier">idxfile</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span>)
+          <span class="ruby-identifier">ver</span> = <span class="ruby-identifier">idxfile</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-value str">&quot;N&quot;</span>)[<span class="ruby-value">0</span>]
+
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sig</span> <span class="ruby-operator">==</span> <span class="ruby-constant">PACK_IDX_SIGNATURE</span>
+            <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">ver</span> <span class="ruby-operator">!=</span> <span class="ruby-value">2</span>)
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">PackFormatError</span>, <span class="ruby-node">&quot;pack #@name has unknown pack file version #{ver}&quot;</span>
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-ivar">@version</span> = <span class="ruby-value">2</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-ivar">@version</span> = <span class="ruby-value">1</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">idx</span> = <span class="ruby-constant">FileWindow</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">idxfile</span>, <span class="ruby-ivar">@version</span>)
+          <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">idx</span>
+          <span class="ruby-identifier">idx</span>.<span class="ruby-identifier">unmap</span>
+          <span class="ruby-identifier">idxfile</span>.<span class="ruby-identifier">close</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

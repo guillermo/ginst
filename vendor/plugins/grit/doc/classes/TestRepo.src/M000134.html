@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_update_refs_packed (TestRepo)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_repo.rb, line 16</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_update_refs_packed</span>
+    <span class="ruby-identifier">gpath</span> = <span class="ruby-identifier">create_temp_repo</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword kw">__FILE__</span>), <span class="ruby-operator">*</span><span class="ruby-node">%w[dot_git]</span>))
+    <span class="ruby-ivar">@git</span> = <span class="ruby-constant">Grit</span><span class="ruby-operator">::</span><span class="ruby-constant">Repo</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">gpath</span>, <span class="ruby-identifier">:is_bare</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>)
+
+    <span class="ruby-comment cmt"># new and existing</span>
+    <span class="ruby-identifier">test</span>   = <span class="ruby-value str">'ac9a30f5a7f0f163bbe3b6f0abf18a6c83b06872'</span>
+    <span class="ruby-identifier">master</span> = <span class="ruby-value str">'ca8a30f5a7f0f163bbe3b6f0abf18a6c83b0687a'</span>
+
+    <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">update_ref</span>(<span class="ruby-value str">'testref'</span>, <span class="ruby-identifier">test</span>)
+    <span class="ruby-identifier">new_t</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">get_head</span>(<span class="ruby-value str">'testref'</span>).<span class="ruby-identifier">commit</span>.<span class="ruby-identifier">sha</span>
+    <span class="ruby-identifier">assert</span> <span class="ruby-identifier">new_t</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">master</span>
+
+    <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">update_ref</span>(<span class="ruby-value str">'master'</span>, <span class="ruby-identifier">test</span>)
+    <span class="ruby-identifier">new_m</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">get_head</span>(<span class="ruby-value str">'master'</span>).<span class="ruby-identifier">commit</span>.<span class="ruby-identifier">sha</span>
+    <span class="ruby-identifier">assert</span> <span class="ruby-identifier">new_m</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">master</span>
+
+    <span class="ruby-identifier">old</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">get_head</span>(<span class="ruby-value str">'nonpack'</span>).<span class="ruby-identifier">commit</span>.<span class="ruby-identifier">sha</span>
+    <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">update_ref</span>(<span class="ruby-value str">'nonpack'</span>, <span class="ruby-identifier">test</span>)
+    <span class="ruby-identifier">newp</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">get_head</span>(<span class="ruby-value str">'nonpack'</span>).<span class="ruby-identifier">commit</span>.<span class="ruby-identifier">sha</span>
+    <span class="ruby-identifier">assert</span> <span class="ruby-identifier">newp</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">old</span>
+
+    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rm_r</span>(<span class="ruby-identifier">gpath</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

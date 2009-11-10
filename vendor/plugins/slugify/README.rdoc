@@ -1,0 +1,37 @@
+
+= slugify
+
+Generate slugs for your models
+
+== Examples
+
+  class Page < ActiveRecord::Base
+    include Slugify
+
+    validates_presence_of :title
+    
+    slugify :title
+  end
+
+  Page.create(:title => "Foo")
+  # => #<Page id: 1, title: "Foo", slug: "foo">
+
+  Page.create(:title => "Foo")
+  # => #<Page id: 1, title: "Foo", slug: "foo-0">
+
+=== Using a different slug column
+
+  slugify :my_column, :slug_column => :bar
+
+=== Scoping:
+
+  slugify :slug_column, :scope => :col_one
+  slugify :slug_column, :scope => [:col_one, :col_two]
+
+=== Conditional slug generation:
+
+  slugify :my_column, :when => lambda { |my_record| my_record.published? }
+  
+== Contributors
+
+  kule - STI Issues [Github Issue #1]

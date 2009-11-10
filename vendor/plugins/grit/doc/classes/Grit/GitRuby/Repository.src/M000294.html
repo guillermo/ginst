@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>create_initial_config (Grit::GitRuby::Repository)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby/repository.rb, line 643</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">create_initial_config</span>(<span class="ruby-identifier">bare</span> = <span class="ruby-keyword kw">false</span>)
+        <span class="ruby-identifier">bare</span> <span class="ruby-value">? </span><span class="ruby-identifier">bare_status</span> = <span class="ruby-value str">'true'</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">bare_status</span> = <span class="ruby-value str">'false'</span>
+        <span class="ruby-identifier">config</span> = <span class="ruby-node">&quot;[core]\n\trepositoryformatversion = 0\n\tfilemode = true\n\tbare = #{bare_status}\n\tlogallrefupdates = true&quot;</span>
+        <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'config'</span>, <span class="ruby-identifier">config</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

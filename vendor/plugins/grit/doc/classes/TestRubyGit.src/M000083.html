@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>setup (TestRubyGit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_rubygit.rb, line 6</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span>
+    <span class="ruby-ivar">@git</span> = <span class="ruby-constant">Git</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword kw">__FILE__</span>), <span class="ruby-operator">*</span><span class="ruby-node">%w[dot_git]</span>))
+    <span class="ruby-ivar">@commit_sha</span> = <span class="ruby-value str">'5e3ee1198672257164ce3fe31dea3e40848e68d5'</span>
+    <span class="ruby-ivar">@tree_sha</span> = <span class="ruby-value str">'cd7422af5a2e0fff3e94d6fb1a8fff03b2841881'</span>
+    <span class="ruby-ivar">@blob_sha</span> = <span class="ruby-value str">'4232d073306f01cf0b895864e5a5cfad7dd76fce'</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

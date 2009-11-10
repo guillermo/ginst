@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>raw_git_call (Grit::Git)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git.rb, line 181</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raw_git_call</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">index</span>)
+      <span class="ruby-identifier">tmp</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-value str">'GIT_INDEX_FILE'</span>]
+      <span class="ruby-constant">ENV</span>[<span class="ruby-value str">'GIT_INDEX_FILE'</span>] = <span class="ruby-identifier">index</span>
+      <span class="ruby-identifier">out</span> = <span class="ruby-node">`#{command}`</span>
+      <span class="ruby-identifier">after</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-value str">'GIT_INDEX_FILE'</span>] <span class="ruby-comment cmt"># someone fucking with us ??</span>
+      <span class="ruby-constant">ENV</span>[<span class="ruby-value str">'GIT_INDEX_FILE'</span>] = <span class="ruby-identifier">tmp</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">after</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">index</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-value str">'environment was changed for the git call'</span>
+      <span class="ruby-keyword kw">end</span>
+      [<span class="ruby-identifier">out</span>, <span class="ruby-identifier">$?</span>.<span class="ruby-identifier">exitstatus</span>]
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

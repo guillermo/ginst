@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>blame_tree (Grit::GitRuby)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby.rb, line 195</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">blame_tree</span>(<span class="ruby-identifier">commit</span>, <span class="ruby-identifier">path</span> = <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">path</span> = [<span class="ruby-identifier">path</span>].<span class="ruby-identifier">join</span>(<span class="ruby-value str">'/'</span>).<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'/'</span> <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">path</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">''</span>)
+        <span class="ruby-identifier">path</span> = <span class="ruby-value str">''</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">path</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">String</span>
+        <span class="ruby-identifier">commits</span> = <span class="ruby-identifier">file_index</span>.<span class="ruby-identifier">last_commits</span>(<span class="ruby-identifier">rev_parse</span>({}, <span class="ruby-identifier">commit</span>), <span class="ruby-identifier">looking_for</span>(<span class="ruby-identifier">commit</span>, <span class="ruby-identifier">path</span>))
+        <span class="ruby-identifier">clean_paths</span>(<span class="ruby-identifier">commits</span>)
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">FileIndex</span><span class="ruby-operator">::</span><span class="ruby-constant">IndexFileNotFound</span>
+        {}
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

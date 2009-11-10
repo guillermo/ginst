@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_tree (TestRepo)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_repo.rb, line 144</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_tree</span>
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:ls_tree</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'ls_tree_a'</span>))
+    <span class="ruby-identifier">tree</span> = <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">tree</span>(<span class="ruby-value str">'master'</span>)
+
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">4</span>, <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">contents</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">Blob</span>) }.<span class="ruby-identifier">size</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">3</span>, <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">contents</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">Tree</span>) }.<span class="ruby-identifier">size</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

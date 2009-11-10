@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_raises_if_too_many_bytes (TestGit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_git.rb, line 51</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_raises_if_too_many_bytes</span>
+    <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">:@bytes_read</span>, <span class="ruby-value">6000000</span>)
+    <span class="ruby-identifier">assert_raises</span> <span class="ruby-constant">Grit</span><span class="ruby-operator">::</span><span class="ruby-constant">Git</span><span class="ruby-operator">::</span><span class="ruby-constant">GitTimeout</span> <span class="ruby-keyword kw">do</span>
+      <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">version</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

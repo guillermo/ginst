@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Grit::Blob</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Grit::Blob</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/grit/blob_rb.html">
+                lib/grit/blob.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000523">&lt;=&gt;</a>&nbsp;&nbsp;
+      <a href="#M000521">basename</a>&nbsp;&nbsp;
+      <a href="#M000520">blame</a>&nbsp;&nbsp;
+      <a href="#M000515">create</a>&nbsp;&nbsp;
+      <a href="#M000516">create_initialize</a>&nbsp;&nbsp;
+      <a href="#M000518">data</a>&nbsp;&nbsp;
+      <a href="#M000522">inspect</a>&nbsp;&nbsp;
+      <a href="#M000519">mime_type</a>&nbsp;&nbsp;
+      <a href="#M000517">size</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DEFAULT_MIME_TYPE</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;text/plain&quot;</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">id</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">mode</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">name</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000520" class="method-detail">
+        <a name="M000520"></a>
+
+        <div class="method-heading">
+          <a href="Blob.src/M000520.html" target="Code" class="method-signature"
+            onclick="popupCode('Blob.src/M000520.html');return false;">
+          <span class="method-name">blame</span><span class="method-args">(repo, commit, file)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The <a href="Blob.html#M000520">blame</a> information for the given file at
+the given commit
+</p>
+<p>
+Returns Array: [<a href="Commit.html">Grit::Commit</a>, Array:
+[&lt;line&gt;]]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000515" class="method-detail">
+        <a name="M000515"></a>
+
+        <div class="method-heading">
+          <a href="Blob.src/M000515.html" target="Code" class="method-signature"
+            onclick="popupCode('Blob.src/M000515.html');return false;">
+          <span class="method-name">create</span><span class="method-args">(repo, atts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create an unbaked <a href="Blob.html">Blob</a> containing just the
+specified attributes
+</p>
+<pre>
+  +repo+ is the Repo
+  +atts+ is a Hash of instance variable data
+</pre>
+<p>
+Returns <a href="Blob.html">Grit::Blob</a> (unbaked)
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000523" class="method-detail">
+        <a name="M000523"></a>
+
+        <div class="method-heading">
+          <a href="Blob.src/M000523.html" target="Code" class="method-signature"
+            onclick="popupCode('Blob.src/M000523.html');return false;">
+          <span class="method-name">&lt;=&gt;</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Compares blobs by name
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000521" class="method-detail">
+        <a name="M000521"></a>
+
+        <div class="method-heading">
+          <a href="Blob.src/M000521.html" target="Code" class="method-signature"
+            onclick="popupCode('Blob.src/M000521.html');return false;">
+          <span class="method-name">basename</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000516" class="method-detail">
+        <a name="M000516"></a>
+
+        <div class="method-heading">
+          <a href="Blob.src/M000516.html" target="Code" class="method-signature"
+            onclick="popupCode('Blob.src/M000516.html');return false;">
+          <span class="method-name">create_initialize</span><span class="method-args">(repo, atts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Initializer for <a href="Blob.html#M000515">Blob.create</a>
+</p>
+<pre>
+  +repo+ is the Repo
+  +atts+ is a Hash of instance variable data
+</pre>
+<p>
+Returns <a href="Blob.html">Grit::Blob</a> (unbaked)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000518" class="method-detail">
+        <a name="M000518"></a>
+
+        <div class="method-heading">
+          <a href="Blob.src/M000518.html" target="Code" class="method-signature"
+            onclick="popupCode('Blob.src/M000518.html');return false;">
+          <span class="method-name">data</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The binary contents of this blob.
+</p>
+<p>
+Returns <a href="../String.html">String</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000522" class="method-detail">
+        <a name="M000522"></a>
+
+        <div class="method-heading">
+          <a href="Blob.src/M000522.html" target="Code" class="method-signature"
+            onclick="popupCode('Blob.src/M000522.html');return false;">
+          <span class="method-name">inspect</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Pretty object inspection
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000519" class="method-detail">
+        <a name="M000519"></a>
+
+        <div class="method-heading">
+          <a href="Blob.src/M000519.html" target="Code" class="method-signature"
+            onclick="popupCode('Blob.src/M000519.html');return false;">
+          <span class="method-name">mime_type</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The mime type of this file (based on the filename)
+</p>
+<p>
+Returns <a href="../String.html">String</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000517" class="method-detail">
+        <a name="M000517"></a>
+
+        <div class="method-heading">
+          <a href="Blob.src/M000517.html" target="Code" class="method-signature"
+            onclick="popupCode('Blob.src/M000517.html');return false;">
+          <span class="method-name">size</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The <a href="Blob.html#M000517">size</a> of this blob in bytes
+</p>
+<p>
+Returns Integer
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

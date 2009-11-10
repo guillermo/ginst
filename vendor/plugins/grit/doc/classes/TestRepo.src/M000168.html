@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_commit_deltas_from_when_other_has_new (TestRepo)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_repo.rb, line 335</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_commit_deltas_from_when_other_has_new</span>
+    <span class="ruby-identifier">other_repo</span> = <span class="ruby-constant">Repo</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">GRIT_REPO</span>)
+    <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">git</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:rev_list</span>).<span class="ruby-identifier">with</span>({}, <span class="ruby-value str">&quot;master&quot;</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">&quot;rev_list_delta_a&quot;</span>))
+    <span class="ruby-identifier">other_repo</span>.<span class="ruby-identifier">git</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:rev_list</span>).<span class="ruby-identifier">with</span>({}, <span class="ruby-value str">&quot;master&quot;</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">&quot;rev_list_delta_b&quot;</span>))
+    <span class="ruby-node">%w[
+      4c8124ffcf4039d292442eeccabdeca5af5c5017
+      634396b2f541a9f2d58b00be1a07f0c358b999b3
+      ab25fd8483882c3bda8a458ad2965d2248654335
+    ]</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ref</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">Commit</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:find_all</span>).<span class="ruby-identifier">with</span>(<span class="ruby-identifier">other_repo</span>, <span class="ruby-identifier">ref</span>, <span class="ruby-identifier">:max_count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>).<span class="ruby-identifier">returns</span>([<span class="ruby-identifier">stub</span>()])
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">delta_blobs</span> = <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">commit_deltas_from</span>(<span class="ruby-identifier">other_repo</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">3</span>, <span class="ruby-identifier">delta_blobs</span>.<span class="ruby-identifier">size</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_ls_tree_paths_multi_single (TestRubyGit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_rubygit.rb, line 116</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_ls_tree_paths_multi_single</span>
+    <span class="ruby-identifier">paths</span> = [<span class="ruby-value str">'lib/grit.rb'</span>]
+    <span class="ruby-identifier">out</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">ls_tree</span>({}, <span class="ruby-ivar">@tree_sha</span>, <span class="ruby-identifier">paths</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-identifier">out</span>, <span class="ruby-value str">&quot;100644 blob 6afcf64c80da8253fa47228eb09bc0eea217e5d1\tlib/grit.rb&quot;</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

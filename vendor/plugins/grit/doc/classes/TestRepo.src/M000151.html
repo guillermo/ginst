@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_fork_bare_with_options (TestRepo)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_repo.rb, line 187</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_fork_bare_with_options</span>
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:clone</span>).<span class="ruby-identifier">with</span>(
+      {<span class="ruby-identifier">:bare</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">:shared</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'/awesome'</span>},
+      <span class="ruby-node">&quot;#{absolute_project_path}/.git&quot;</span>,
+      <span class="ruby-value str">&quot;/foo/bar.git&quot;</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-keyword kw">nil</span>)
+    <span class="ruby-constant">Repo</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:new</span>)
+
+    <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">fork_bare</span>(<span class="ruby-value str">&quot;/foo/bar.git&quot;</span>, <span class="ruby-identifier">:template</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'/awesome'</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

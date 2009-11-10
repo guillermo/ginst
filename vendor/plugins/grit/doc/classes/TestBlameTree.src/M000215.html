@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_blame_tree_multi_path (TestBlameTree)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_blame_tree.rb, line 26</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_blame_tree_multi_path</span>
+    <span class="ruby-identifier">commit</span> = <span class="ruby-value str">'2d3acf90f35989df8f262dc50beadc4ee3ae1560'</span>
+    <span class="ruby-identifier">tree</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">blame_tree</span>(<span class="ruby-identifier">commit</span>, <span class="ruby-value str">'lib/grit'</span>)
+    <span class="ruby-identifier">last_commit_sha</span> = <span class="ruby-identifier">tree</span>[<span class="ruby-value str">'lib/grit/diff.rb'</span>]
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-identifier">last_commit_sha</span>, <span class="ruby-value str">'22825175e37f22c9418d756ca69b574d75602994'</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

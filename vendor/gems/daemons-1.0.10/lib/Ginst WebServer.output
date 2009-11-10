@@ -1,0 +1,30 @@
+=> Booting Mongrel
+=> Rails 2.3.4 application starting on http://0.0.0.0:3000
+/Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/script/../config/../vendor/rails/railties/lib/rails/plugin/loader.rb:191:in `ensure_all_registered_plugins_are_loaded!': Could not locate the following plugins: attribute_choices, authlogic, grit, and slugify (LoadError)
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/script/../config/../vendor/rails/railties/lib/rails/plugin/loader.rb:44:in `load_plugins'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/script/../config/../vendor/rails/railties/lib/initializer.rb:369:in `load_plugins'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/script/../config/../vendor/rails/railties/lib/initializer.rb:165:in `process'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/script/../config/../vendor/rails/railties/lib/initializer.rb:113:in `send'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/script/../config/../vendor/rails/railties/lib/initializer.rb:113:in `run'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/config/environment.rb:16
+	from /Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	from /Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `require'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/vendor/rails/activesupport/lib/active_support/dependencies.rb:156:in `require'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/vendor/rails/activesupport/lib/active_support/dependencies.rb:521:in `new_constants_in'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/vendor/rails/activesupport/lib/active_support/dependencies.rb:156:in `require'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/vendor/rails/railties/lib/commands/server.rb:84
+	from /Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+	from /Library/Ruby/Site/1.8/rubygems/custom_require.rb:31:in `require'
+	from /Users/guillermo/Documents/PersonalProjects/ginst/ginst.rails/script/server:3
+	from ./vendor/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `load'
+	from ./vendor/gems/daemons-1.0.10/lib/daemons/application.rb:176:in `start_load'
+	from ./vendor/gems/daemons-1.0.10/lib/daemons/application.rb:257:in `start'
+	from ./vendor/gems/daemons-1.0.10/lib/daemons/controller.rb:69:in `run'
+	from ./vendor/gems/daemons-1.0.10/lib/daemons.rb:139:in `run'
+	from ./vendor/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `call'
+	from ./vendor/gems/daemons-1.0.10/lib/daemons/cmdline.rb:105:in `catch_exceptions'
+	from ./vendor/gems/daemons-1.0.10/lib/daemons.rb:138:in `run'
+	from ./bin/ginst:113:in `daemon'
+	from ./bin/ginst:39:in `initialize'
+	from ./bin/ginst:168:in `new'
+	from ./bin/ginst:168

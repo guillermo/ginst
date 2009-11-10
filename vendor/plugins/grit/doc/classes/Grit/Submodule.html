@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Grit::Submodule</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Grit::Submodule</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/grit/submodule_rb.html">
+                lib/grit/submodule.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000383">basename</a>&nbsp;&nbsp;
+      <a href="#M000382">config</a>&nbsp;&nbsp;
+      <a href="#M000379">create</a>&nbsp;&nbsp;
+      <a href="#M000380">create_initialize</a>&nbsp;&nbsp;
+      <a href="#M000384">inspect</a>&nbsp;&nbsp;
+      <a href="#M000381">url</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">id</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">mode</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">name</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000382" class="method-detail">
+        <a name="M000382"></a>
+
+        <div class="method-heading">
+          <a href="Submodule.src/M000382.html" target="Code" class="method-signature"
+            onclick="popupCode('Submodule.src/M000382.html');return false;">
+          <span class="method-name">config</span><span class="method-args">(repo, ref = &quot;master&quot;)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The configuration information for the given <tt>repo</tt>
+</p>
+<pre>
+  +repo+ is the Repo
+  +ref+ is the committish (defaults to 'master')
+</pre>
+<p>
+Returns a Hash of { &lt;path:<a href="../String.html">String</a>&gt; =&gt;
+{ &#8216;<a href="Submodule.html#M000381">url</a>&#8217; =&gt; &lt;<a
+href="Submodule.html#M000381">url</a>:<a
+href="../String.html">String</a>&gt;, &#8216;id&#8217; =&gt; &lt;id:<a
+href="../String.html">String</a>&gt; } } Returns {} if no .gitmodules file
+was found
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000379" class="method-detail">
+        <a name="M000379"></a>
+
+        <div class="method-heading">
+          <a href="Submodule.src/M000379.html" target="Code" class="method-signature"
+            onclick="popupCode('Submodule.src/M000379.html');return false;">
+          <span class="method-name">create</span><span class="method-args">(repo, atts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a href="Submodule.html">Submodule</a> containing just the
+specified attributes
+</p>
+<pre>
+  +repo+ is the Repo
+  +atts+ is a Hash of instance variable data
+</pre>
+<p>
+Returns <a href="Submodule.html">Grit::Submodule</a> (unbaked)
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000383" class="method-detail">
+        <a name="M000383"></a>
+
+        <div class="method-heading">
+          <a href="Submodule.src/M000383.html" target="Code" class="method-signature"
+            onclick="popupCode('Submodule.src/M000383.html');return false;">
+          <span class="method-name">basename</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000380" class="method-detail">
+        <a name="M000380"></a>
+
+        <div class="method-heading">
+          <a href="Submodule.src/M000380.html" target="Code" class="method-signature"
+            onclick="popupCode('Submodule.src/M000380.html');return false;">
+          <span class="method-name">create_initialize</span><span class="method-args">(repo, atts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Initializer for <a href="Submodule.html#M000379">Submodule.create</a>
+</p>
+<pre>
+  +repo+ is the Repo
+  +atts+ is a Hash of instance variable data
+</pre>
+<p>
+Returns <a href="Submodule.html">Grit::Submodule</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000384" class="method-detail">
+        <a name="M000384"></a>
+
+        <div class="method-heading">
+          <a href="Submodule.src/M000384.html" target="Code" class="method-signature"
+            onclick="popupCode('Submodule.src/M000384.html');return false;">
+          <span class="method-name">inspect</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Pretty object inspection
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000381" class="method-detail">
+        <a name="M000381"></a>
+
+        <div class="method-heading">
+          <a href="Submodule.src/M000381.html" target="Code" class="method-signature"
+            onclick="popupCode('Submodule.src/M000381.html');return false;">
+          <span class="method-name">url</span><span class="method-args">(ref)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The <a href="Submodule.html#M000381">url</a> of this submodule
+</p>
+<pre>
+  +ref+ is the committish that should be used to look up the url
+</pre>
+<p>
+Returns <a href="../String.html">String</a>
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

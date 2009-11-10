@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>rev_list (Grit::GitRuby::Repository)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby/repository.rb, line 274</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rev_list</span>(<span class="ruby-identifier">sha</span>, <span class="ruby-identifier">options</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sha</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Array</span>
+          (<span class="ruby-identifier">end_sha</span>, <span class="ruby-identifier">sha</span>) = <span class="ruby-identifier">sha</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">log</span> = <span class="ruby-identifier">log</span>(<span class="ruby-identifier">sha</span>, <span class="ruby-identifier">options</span>)
+        <span class="ruby-identifier">log</span> = <span class="ruby-identifier">log</span>.<span class="ruby-identifier">sort</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>[<span class="ruby-value">2</span>] }.<span class="ruby-identifier">reverse</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">end_sha</span>
+          <span class="ruby-identifier">log</span> = <span class="ruby-identifier">truncate_arr</span>(<span class="ruby-identifier">log</span>, <span class="ruby-identifier">end_sha</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># shorten the list if it's longer than max_count (had to get everything in branches)</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:max_count</span>]
+          <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">opt_len</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:max_count</span>].<span class="ruby-identifier">to_i</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">log</span>.<span class="ruby-identifier">size</span>
+            <span class="ruby-identifier">log</span> = <span class="ruby-identifier">log</span>[<span class="ruby-value">0</span>, <span class="ruby-identifier">opt_len</span>]
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:pretty</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'raw'</span>
+          <span class="ruby-identifier">log</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">''</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">log</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

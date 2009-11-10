@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>look_for_commits (Grit::GitRuby::Repository)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby/repository.rb, line 562</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">look_for_commits</span>(<span class="ruby-identifier">commit_sha</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">looking_for</span>, <span class="ruby-identifier">options</span> = {})
+        <span class="ruby-keyword kw">return</span> [] <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@already_searched</span>[<span class="ruby-identifier">commit_sha</span>] <span class="ruby-comment cmt"># to prevent rechecking branches</span>
+
+        <span class="ruby-ivar">@already_searched</span>[<span class="ruby-identifier">commit_sha</span>] = <span class="ruby-keyword kw">true</span>
+
+        <span class="ruby-identifier">commit</span> = <span class="ruby-identifier">get_object_by_sha1</span>(<span class="ruby-identifier">commit_sha</span>)
+        <span class="ruby-identifier">tree_sha</span> = <span class="ruby-identifier">get_subtree</span>(<span class="ruby-identifier">commit_sha</span>, <span class="ruby-identifier">path</span>)
+
+        <span class="ruby-identifier">found_data</span> = []
+
+        <span class="ruby-comment cmt"># at the beginning of the branch</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">commit</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+          <span class="ruby-identifier">looking_for</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">search</span><span class="ruby-operator">|</span>
+            <span class="ruby-comment cmt"># prevents the rare case of multiple branch starting points with</span>
+            <span class="ruby-comment cmt"># files that have never changed</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">found_data</span>.<span class="ruby-identifier">assoc</span>(<span class="ruby-identifier">search</span>)
+              <span class="ruby-identifier">found_data</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">search</span>, <span class="ruby-identifier">commit_sha</span>]
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">found_data</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># go through the parents recursively, looking for somewhere this has been changed</span>
+        <span class="ruby-identifier">commit</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pc</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">diff</span> = <span class="ruby-identifier">quick_diff</span>(<span class="ruby-identifier">tree_sha</span>, <span class="ruby-identifier">get_subtree</span>(<span class="ruby-identifier">pc</span>, <span class="ruby-identifier">path</span>), <span class="ruby-value str">'.'</span>, <span class="ruby-keyword kw">false</span>)
+
+          <span class="ruby-comment cmt"># remove anything found</span>
+          <span class="ruby-identifier">looking_for</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">search</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">match</span> = <span class="ruby-identifier">diff</span>.<span class="ruby-identifier">assoc</span>(<span class="ruby-identifier">search</span>)
+              <span class="ruby-identifier">found_data</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">search</span>, <span class="ruby-identifier">commit_sha</span>, <span class="ruby-identifier">match</span>]
+              <span class="ruby-identifier">looking_for</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">search</span>)
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">looking_for</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>  <span class="ruby-comment cmt"># we're done</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">found_data</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">found_data</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">look_for_commits</span>(<span class="ruby-identifier">pc</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">looking_for</span>)  <span class="ruby-comment cmt"># recurse into parent</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">found_data</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:first_parent</span>]
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt">## TODO : find most recent commit with change in any parent</span>
+        <span class="ruby-identifier">found_data</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

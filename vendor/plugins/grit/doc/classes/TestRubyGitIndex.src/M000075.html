@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_add_path_file (TestRubyGitIndex)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_rubygit_index.rb, line 37</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_add_path_file</span>
+    <span class="ruby-identifier">sha</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">commits</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">tree</span>.<span class="ruby-identifier">id</span>
+
+    <span class="ruby-identifier">i</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">index</span>
+    <span class="ruby-identifier">i</span>.<span class="ruby-identifier">read_tree</span>(<span class="ruby-identifier">sha</span>)
+    <span class="ruby-identifier">i</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value str">'lib/atester.rb'</span>, <span class="ruby-value str">'test stuff'</span>)
+    <span class="ruby-identifier">i</span>.<span class="ruby-identifier">commit</span>(<span class="ruby-value str">'message'</span>, [<span class="ruby-ivar">@git</span>.<span class="ruby-identifier">commits</span>.<span class="ruby-identifier">first</span>], <span class="ruby-ivar">@user</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-value str">'master'</span>)
+
+    <span class="ruby-identifier">b</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">commits</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">tree</span><span class="ruby-operator">/</span><span class="ruby-value str">'lib'</span><span class="ruby-operator">/</span><span class="ruby-value str">'atester.rb'</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'f80c3b68482d5e1c8d24c9b8139340f0d0a928d0'</span>, <span class="ruby-identifier">b</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">b</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">commits</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">tree</span><span class="ruby-operator">/</span><span class="ruby-value str">'lib'</span><span class="ruby-operator">/</span><span class="ruby-value str">'grit.rb'</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'77aa887449c28a922a660b2bb749e4127f7664e5'</span>, <span class="ruby-identifier">b</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>blame (Grit::Blob)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/blob.rb, line 57</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">blame</span>(<span class="ruby-identifier">repo</span>, <span class="ruby-identifier">commit</span>, <span class="ruby-identifier">file</span>)
+      <span class="ruby-identifier">data</span> = <span class="ruby-identifier">repo</span>.<span class="ruby-identifier">git</span>.<span class="ruby-identifier">blame</span>({<span class="ruby-identifier">:p</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}, <span class="ruby-identifier">commit</span>, <span class="ruby-value str">'--'</span>, <span class="ruby-identifier">file</span>)
+
+      <span class="ruby-identifier">commits</span> = {}
+      <span class="ruby-identifier">blames</span> = []
+      <span class="ruby-identifier">info</span> = <span class="ruby-keyword kw">nil</span>
+
+      <span class="ruby-identifier">data</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/\s+/</span>, <span class="ruby-value">2</span>)
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">first</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^[0-9A-Fa-f]{40}$/</span>
+            <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">line</span>
+              <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^([0-9A-Fa-f]{40}) (\d+) (\d+) (\d+)$/</span>
+                <span class="ruby-identifier">_</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">origin_line</span>, <span class="ruby-identifier">final_line</span>, <span class="ruby-identifier">group_lines</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">line</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^([0-9A-Fa-f]{40}) (\d+) (\d+) (\d+)$/</span>)
+                <span class="ruby-identifier">info</span> = {<span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span>}
+                <span class="ruby-identifier">blames</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-keyword kw">nil</span>, []]
+              <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^([0-9A-Fa-f]{40}) (\d+) (\d+)$/</span>
+                <span class="ruby-identifier">_</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">origin_line</span>, <span class="ruby-identifier">final_line</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">line</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^([0-9A-Fa-f]{40}) (\d+) (\d+)$/</span>)
+                <span class="ruby-identifier">info</span> = {<span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span>}
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^(author|committer)/</span>
+            <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">first</span>
+              <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^(.+)-mail$/</span>
+                <span class="ruby-identifier">info</span>[<span class="ruby-node">&quot;#{$1}_email&quot;</span>.<span class="ruby-identifier">intern</span>] = <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">last</span>
+              <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^(.+)-time$/</span>
+                <span class="ruby-identifier">info</span>[<span class="ruby-node">&quot;#{$1}_date&quot;</span>.<span class="ruby-identifier">intern</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-identifier">parts</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">to_i</span>)
+              <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^(author|committer)$/</span>
+                <span class="ruby-identifier">info</span>[<span class="ruby-identifier">$1</span>.<span class="ruby-identifier">intern</span>] = <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">last</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^filename/</span>
+            <span class="ruby-identifier">info</span>[<span class="ruby-identifier">:filename</span>] = <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">last</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^summary/</span>
+            <span class="ruby-identifier">info</span>[<span class="ruby-identifier">:summary</span>] = <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">last</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-value str">''</span>
+            <span class="ruby-identifier">c</span> = <span class="ruby-identifier">commits</span>[<span class="ruby-identifier">info</span>[<span class="ruby-identifier">:id</span>]]
+            <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">c</span>
+              <span class="ruby-identifier">c</span> = <span class="ruby-constant">Commit</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">repo</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">info</span>[<span class="ruby-identifier">:id</span>],
+                                      <span class="ruby-identifier">:author</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Actor</span>.<span class="ruby-identifier">from_string</span>(<span class="ruby-identifier">info</span>[<span class="ruby-identifier">:author</span>] <span class="ruby-operator">+</span> <span class="ruby-value str">' '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">info</span>[<span class="ruby-identifier">:author_email</span>]),
+                                      <span class="ruby-identifier">:authored_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">info</span>[<span class="ruby-identifier">:author_date</span>],
+                                      <span class="ruby-identifier">:committer</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Actor</span>.<span class="ruby-identifier">from_string</span>(<span class="ruby-identifier">info</span>[<span class="ruby-identifier">:committer</span>] <span class="ruby-operator">+</span> <span class="ruby-value str">' '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">info</span>[<span class="ruby-identifier">:committer_email</span>]),
+                                      <span class="ruby-identifier">:committed_date</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">info</span>[<span class="ruby-identifier">:committer_date</span>],
+                                      <span class="ruby-identifier">:message</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">info</span>[<span class="ruby-identifier">:summary</span>])
+              <span class="ruby-identifier">commits</span>[<span class="ruby-identifier">info</span>[<span class="ruby-identifier">:id</span>]] = <span class="ruby-identifier">c</span>
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-identifier">_</span>, <span class="ruby-identifier">text</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">line</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^\t(.*)$/</span>)
+            <span class="ruby-identifier">blames</span>.<span class="ruby-identifier">last</span>[<span class="ruby-value">0</span>] = <span class="ruby-identifier">c</span>
+            <span class="ruby-identifier">blames</span>.<span class="ruby-identifier">last</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text</span>
+            <span class="ruby-identifier">info</span> = <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">blames</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

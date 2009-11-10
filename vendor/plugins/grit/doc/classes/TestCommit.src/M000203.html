@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_diff_with_two_commits_and_files (TestCommit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_commit.rb, line 74</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_diff_with_two_commits_and_files</span>
+    <span class="ruby-comment cmt"># git diff --full-index 59ddc32 13d27d5 -- lib &gt; test/fixtures/diff_2f</span>
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:diff</span>).<span class="ruby-identifier">with</span>({<span class="ruby-identifier">:full_index</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}, <span class="ruby-value str">'59ddc32'</span>, <span class="ruby-value str">'13d27d5'</span>, <span class="ruby-value str">'--'</span>, <span class="ruby-value str">'lib'</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'diff_2f'</span>))
+    <span class="ruby-identifier">diffs</span> = <span class="ruby-constant">Commit</span>.<span class="ruby-identifier">diff</span>(<span class="ruby-ivar">@r</span>, <span class="ruby-value str">'59ddc32'</span>, <span class="ruby-value str">'13d27d5'</span>, <span class="ruby-node">%w(lib)</span>)
+
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">size</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'lib/grit/commit.rb'</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">a_path</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

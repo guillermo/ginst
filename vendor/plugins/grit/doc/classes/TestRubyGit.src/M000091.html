@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_diff_remove (TestRubyGit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_rubygit.rb, line 65</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_diff_remove</span>
+    <span class="ruby-identifier">commit1</span> = <span class="ruby-value str">'c9cf68fc61bd2634e90a4f6a12d88744e6297c4e'</span>
+    <span class="ruby-identifier">commit2</span> = <span class="ruby-value str">'7a8d32cb18a0ba2ff8bf86cadacc3fd2816da219'</span>
+    <span class="ruby-identifier">out</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">diff</span>({}, <span class="ruby-identifier">commit1</span>, <span class="ruby-identifier">commit2</span>)
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-value str">&quot;--- a/test/fixtures/diff_2\n+++ /dev/null&quot;</span>, <span class="ruby-identifier">out</span>
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-value str">&quot;diff --git a/test/fixtures/diff_2 b/test/fixtures/diff_2&quot;</span>, <span class="ruby-identifier">out</span>
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-value str">'index 0000000..2e3b0cb'</span>, <span class="ruby-identifier">out</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

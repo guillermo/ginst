@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_log_merge (TestRubyGit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_rubygit.rb, line 23</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_log_merge</span>
+    <span class="ruby-identifier">c1</span> = <span class="ruby-value str">'420eac97a826bfac8724b6b0eef35c20922124b7'</span>
+    <span class="ruby-identifier">c2</span> = <span class="ruby-value str">'30e367cef2203eba2b341dc9050993b06fd1e108'</span>
+    <span class="ruby-identifier">out</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">rev_list</span>({<span class="ruby-identifier">:pretty</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'raw'</span>, <span class="ruby-identifier">:max_count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">10</span>}, <span class="ruby-value str">'master'</span>)
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-node">&quot;commit #{c1}&quot;</span>, <span class="ruby-identifier">out</span>
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-node">&quot;commit #{c2}&quot;</span>, <span class="ruby-identifier">out</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

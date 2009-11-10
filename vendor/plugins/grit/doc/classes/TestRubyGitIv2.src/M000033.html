@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_objects (TestRubyGitIv2)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_rubygit_iv2.rb, line 19</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_objects</span>
+    <span class="ruby-identifier">commit</span> = <span class="ruby-ivar">@rgit</span>.<span class="ruby-identifier">get_object_by_sha1</span>(<span class="ruby-ivar">@commit_sha</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-identifier">commit</span>.<span class="ruby-identifier">author</span>.<span class="ruby-identifier">email</span>, <span class="ruby-value str">'schacon@gmail.com'</span>
+    <span class="ruby-identifier">tree</span> = <span class="ruby-ivar">@rgit</span>.<span class="ruby-identifier">get_object_by_sha1</span>(<span class="ruby-ivar">@tree_sha</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">7</span>, <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">entry</span>.<span class="ruby-identifier">size</span>
+    <span class="ruby-identifier">blob</span> = <span class="ruby-ivar">@rgit</span>.<span class="ruby-identifier">get_object_by_sha1</span>(<span class="ruby-ivar">@blob_sha</span>)
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-value str">'First public release'</span>, <span class="ruby-identifier">blob</span>.<span class="ruby-identifier">content</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

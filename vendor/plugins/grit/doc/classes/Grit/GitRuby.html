@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Grit::GitRuby</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Grit::GitRuby</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/grit/git-ruby/file_index_rb.html">
+                lib/grit/git-ruby/file_index.rb
+                </a>
+        <br />
+                <a href="../../files/lib/grit/git-ruby/git_object_rb.html">
+                lib/grit/git-ruby/git_object.rb
+                </a>
+        <br />
+                <a href="../../files/lib/grit/git-ruby/internal/file_window_rb.html">
+                lib/grit/git-ruby/internal/file_window.rb
+                </a>
+        <br />
+                <a href="../../files/lib/grit/git-ruby/internal/loose_rb.html">
+                lib/grit/git-ruby/internal/loose.rb
+                </a>
+        <br />
+                <a href="../../files/lib/grit/git-ruby/internal/pack_rb.html">
+                lib/grit/git-ruby/internal/pack.rb
+                </a>
+        <br />
+                <a href="../../files/lib/grit/git-ruby/internal/raw_object_rb.html">
+                lib/grit/git-ruby/internal/raw_object.rb
+                </a>
+        <br />
+                <a href="../../files/lib/grit/git-ruby/object_rb.html">
+                lib/grit/git-ruby/object.rb
+                </a>
+        <br />
+                <a href="../../files/lib/grit/git-ruby/repository_rb.html">
+                lib/grit/git-ruby/repository.rb
+                </a>
+        <br />
+                <a href="../../files/lib/grit/git-ruby_rb.html">
+                lib/grit/git-ruby.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+the functions in this module intercept the calls to git binary made buy the
+grit objects and attempts to run them in pure ruby if it will be faster, or
+if the git binary is not available (!!TODO!!)
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000233">blame_tree</a>&nbsp;&nbsp;
+      <a href="#M000224">cat_file</a>&nbsp;&nbsp;
+      <a href="#M000226">diff</a>&nbsp;&nbsp;
+      <a href="#M000234">file_index</a>&nbsp;&nbsp;
+      <a href="#M000231">file_size</a>&nbsp;&nbsp;
+      <a href="#M000232">file_type</a>&nbsp;&nbsp;
+      <a href="#M000223">init</a>&nbsp;&nbsp;
+      <a href="#M000225">ls_tree</a>&nbsp;&nbsp;
+      <a href="#M000222">read_bytes_until</a>&nbsp;&nbsp;
+      <a href="#M000221">read_bytes_until</a>&nbsp;&nbsp;
+      <a href="#M000229">refs</a>&nbsp;&nbsp;
+      <a href="#M000227">rev_list</a>&nbsp;&nbsp;
+      <a href="#M000228">rev_parse</a>&nbsp;&nbsp;
+      <a href="#M000235">ruby_git</a>&nbsp;&nbsp;
+      <a href="#M000230">tags</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="GitRuby/Internal.html" class="link">Grit::GitRuby::Internal</a><br />
+Class <a href="GitRuby/Blob.html" class="link">Grit::GitRuby::Blob</a><br />
+Class <a href="GitRuby/Commit.html" class="link">Grit::GitRuby::Commit</a><br />
+Class <a href="GitRuby/DirectoryEntry.html" class="link">Grit::GitRuby::DirectoryEntry</a><br />
+Class <a href="GitRuby/FileIndex.html" class="link">Grit::GitRuby::FileIndex</a><br />
+Class <a href="GitRuby/GitObject.html" class="link">Grit::GitRuby::GitObject</a><br />
+Class <a href="GitRuby/Object.html" class="link">Grit::GitRuby::Object</a><br />
+Class <a href="GitRuby/Repository.html" class="link">Grit::GitRuby::Repository</a><br />
+Class <a href="GitRuby/Tag.html" class="link">Grit::GitRuby::Tag</a><br />
+Class <a href="GitRuby/Tree.html" class="link">Grit::GitRuby::Tree</a><br />
+Class <a href="GitRuby/UserInfo.html" class="link">Grit::GitRuby::UserInfo</a><br />
+
+    </div>
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">git_file_index</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ruby_git_repo</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000222" class="method-detail">
+        <a name="M000222"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000222.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000222.html');return false;">
+          <span class="method-name">read_bytes_until</span><span class="method-args">(io, char)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000221" class="method-detail">
+        <a name="M000221"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000221.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000221.html');return false;">
+          <span class="method-name">read_bytes_until</span><span class="method-args">(io, char)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000233" class="method-detail">
+        <a name="M000233"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000233.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000233.html');return false;">
+          <span class="method-name">blame_tree</span><span class="method-args">(commit, path = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000224" class="method-detail">
+        <a name="M000224"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000224.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000224.html');return false;">
+          <span class="method-name">cat_file</span><span class="method-args">(options, ref)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000226" class="method-detail">
+        <a name="M000226"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000226.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000226.html');return false;">
+          <span class="method-name">diff</span><span class="method-args">(options, sha1, sha2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+git <a href="GitRuby.html#M000226">diff</a> &#8212;full-index
+&#8216;ec037431382e83c3e95d4f2b3d145afbac8ea55d&#8217;
+&#8216;f1ec1aea10986159456846b8a05615b87828d6c6&#8216;
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000234" class="method-detail">
+        <a name="M000234"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000234.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000234.html');return false;">
+          <span class="method-name">file_index</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000231" class="method-detail">
+        <a name="M000231"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000231.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000231.html');return false;">
+          <span class="method-name">file_size</span><span class="method-args">(ref)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000232" class="method-detail">
+        <a name="M000232"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000232.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000232.html');return false;">
+          <span class="method-name">file_type</span><span class="method-args">(ref)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000223" class="method-detail">
+        <a name="M000223"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000223.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000223.html');return false;">
+          <span class="method-name">init</span><span class="method-args">(options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000225" class="method-detail">
+        <a name="M000225"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000225.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000225.html');return false;">
+          <span class="method-name">ls_tree</span><span class="method-args">(options, treeish, *paths)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+lib/grit/tree.rb:16: output = repo.git.<a
+href="GitRuby.html#M000225">ls_tree</a>({}, treeish, *paths)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000229" class="method-detail">
+        <a name="M000229"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000229.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000229.html');return false;">
+          <span class="method-name">refs</span><span class="method-args">(options, prefix)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000227" class="method-detail">
+        <a name="M000227"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000227.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000227.html');return false;">
+          <span class="method-name">rev_list</span><span class="method-args">(options, ref = 'master')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000228" class="method-detail">
+        <a name="M000228"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000228.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000228.html');return false;">
+          <span class="method-name">rev_parse</span><span class="method-args">(options, string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000235" class="method-detail">
+        <a name="M000235"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000235.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000235.html');return false;">
+          <span class="method-name">ruby_git</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000230" class="method-detail">
+        <a name="M000230"></a>
+
+        <div class="method-heading">
+          <a href="GitRuby.src/M000230.html" target="Code" class="method-signature"
+            onclick="popupCode('GitRuby.src/M000230.html');return false;">
+          <span class="method-name">tags</span><span class="method-args">(options, prefix)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

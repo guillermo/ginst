@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_blame (TestBlob)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_blob.rb, line 52</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_blame</span>
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:blame</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'blame'</span>))
+    <span class="ruby-identifier">b</span> = <span class="ruby-constant">Blob</span>.<span class="ruby-identifier">blame</span>(<span class="ruby-ivar">@r</span>, <span class="ruby-value str">'master'</span>, <span class="ruby-value str">'lib/grit.rb'</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">13</span>, <span class="ruby-identifier">b</span>.<span class="ruby-identifier">size</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">25</span>, <span class="ruby-identifier">b</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">acc</span>, <span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">acc</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">size</span> }
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-identifier">b</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">first</span>.<span class="ruby-identifier">object_id</span>, <span class="ruby-identifier">b</span>[<span class="ruby-value">9</span>].<span class="ruby-identifier">first</span>.<span class="ruby-identifier">object_id</span>
+    <span class="ruby-identifier">c</span> = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">first</span>
+    <span class="ruby-identifier">c</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:__bake__</span>).<span class="ruby-identifier">times</span>(<span class="ruby-value">0</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'634396b2f541a9f2d58b00be1a07f0c358b999b3'</span>, <span class="ruby-identifier">c</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'Tom Preston-Werner'</span>, <span class="ruby-identifier">c</span>.<span class="ruby-identifier">author</span>.<span class="ruby-identifier">name</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'tom@mojombo.com'</span>, <span class="ruby-identifier">c</span>.<span class="ruby-identifier">author</span>.<span class="ruby-identifier">email</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value">1191997100</span>), <span class="ruby-identifier">c</span>.<span class="ruby-identifier">authored_date</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'Tom Preston-Werner'</span>, <span class="ruby-identifier">c</span>.<span class="ruby-identifier">committer</span>.<span class="ruby-identifier">name</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'tom@mojombo.com'</span>, <span class="ruby-identifier">c</span>.<span class="ruby-identifier">committer</span>.<span class="ruby-identifier">email</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-value">1191997100</span>), <span class="ruby-identifier">c</span>.<span class="ruby-identifier">committed_date</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'initial grit setup'</span>, <span class="ruby-identifier">c</span>.<span class="ruby-identifier">message</span>
+    <span class="ruby-comment cmt"># c.expects(:__bake__).times(1)</span>
+    <span class="ruby-comment cmt"># assert_equal Tree, c.tree.class</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

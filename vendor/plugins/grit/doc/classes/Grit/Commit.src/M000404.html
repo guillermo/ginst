@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_hash (Grit::Commit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/commit.rb, line 222</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_hash</span>
+      {
+        <span class="ruby-value str">'id'</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">id</span>,
+        <span class="ruby-value str">'parents'</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">parents</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> { <span class="ruby-value str">'id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">id</span> } },
+        <span class="ruby-value str">'tree'</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">id</span>,
+        <span class="ruby-value str">'message'</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">message</span>,
+        <span class="ruby-value str">'author'</span>   =<span class="ruby-operator">&gt;</span> {
+          <span class="ruby-value str">'name'</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">author</span>.<span class="ruby-identifier">name</span>,
+          <span class="ruby-value str">'email'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">author</span>.<span class="ruby-identifier">email</span>
+        },
+        <span class="ruby-value str">'committer'</span> =<span class="ruby-operator">&gt;</span> {
+          <span class="ruby-value str">'name'</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">committer</span>.<span class="ruby-identifier">name</span>,
+          <span class="ruby-value str">'email'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">committer</span>.<span class="ruby-identifier">email</span>
+        },
+        <span class="ruby-value str">'authored_date'</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">authored_date</span>.<span class="ruby-identifier">xmlschema</span>,
+        <span class="ruby-value str">'committed_date'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">committed_date</span>.<span class="ruby-identifier">xmlschema</span>,
+      }
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

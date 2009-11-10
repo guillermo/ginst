@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: TestGit</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">TestGit</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/test/test_git_rb.html">
+                test/test_git.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Test::Unit::TestCase
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000034">setup</a>&nbsp;&nbsp;
+      <a href="#M000035">teardown</a>&nbsp;&nbsp;
+      <a href="#M000041">test_can_skip_timeout</a>&nbsp;&nbsp;
+      <a href="#M000049">test_fs_delete</a>&nbsp;&nbsp;
+      <a href="#M000047">test_fs_read</a>&nbsp;&nbsp;
+      <a href="#M000048">test_fs_write</a>&nbsp;&nbsp;
+      <a href="#M000044">test_it_really_shell_escapes_arguments_to_the_git_shell</a>&nbsp;&nbsp;
+      <a href="#M000045">test_it_shell_escapes_the_standalone_argument</a>&nbsp;&nbsp;
+      <a href="#M000037">test_logs_stderr</a>&nbsp;&nbsp;
+      <a href="#M000036">test_method_missing</a>&nbsp;&nbsp;
+      <a href="#M000046">test_piping_should_work_on_1_9</a>&nbsp;&nbsp;
+      <a href="#M000042">test_raises_if_too_many_bytes</a>&nbsp;&nbsp;
+      <a href="#M000043">test_raises_on_slow_shell</a>&nbsp;&nbsp;
+      <a href="#M000039">test_transform_options</a>&nbsp;&nbsp;
+      <a href="#M000040">test_uses_custom_sh_method</a>&nbsp;&nbsp;
+      <a href="#M000038">testl_logs_stderr_when_skipping_timeout</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000034.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000034.html');return false;">
+          <span class="method-name">setup</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000035.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000035.html');return false;">
+          <span class="method-name">teardown</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000041" class="method-detail">
+        <a name="M000041"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000041.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000041.html');return false;">
+          <span class="method-name">test_can_skip_timeout</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000049" class="method-detail">
+        <a name="M000049"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000049.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000049.html');return false;">
+          <span class="method-name">test_fs_delete</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000047.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000047.html');return false;">
+          <span class="method-name">test_fs_read</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000048" class="method-detail">
+        <a name="M000048"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000048.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000048.html');return false;">
+          <span class="method-name">test_fs_write</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000044.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000044.html');return false;">
+          <span class="method-name">test_it_really_shell_escapes_arguments_to_the_git_shell</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000045" class="method-detail">
+        <a name="M000045"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000045.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000045.html');return false;">
+          <span class="method-name">test_it_shell_escapes_the_standalone_argument</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000037.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000037.html');return false;">
+          <span class="method-name">test_logs_stderr</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000036.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000036.html');return false;">
+          <span class="method-name">test_method_missing</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000046" class="method-detail">
+        <a name="M000046"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000046.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000046.html');return false;">
+          <span class="method-name">test_piping_should_work_on_1_9</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000042.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000042.html');return false;">
+          <span class="method-name">test_raises_if_too_many_bytes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000043.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000043.html');return false;">
+          <span class="method-name">test_raises_on_slow_shell</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000039" class="method-detail">
+        <a name="M000039"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000039.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000039.html');return false;">
+          <span class="method-name">test_transform_options</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000040" class="method-detail">
+        <a name="M000040"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000040.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000040.html');return false;">
+          <span class="method-name">test_uses_custom_sh_method</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000038" class="method-detail">
+        <a name="M000038"></a>
+
+        <div class="method-heading">
+          <a href="TestGit.src/M000038.html" target="Code" class="method-signature"
+            onclick="popupCode('TestGit.src/M000038.html');return false;">
+          <span class="method-name">testl_logs_stderr_when_skipping_timeout</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_commit (TestCommitWrite)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_commit_write.rb, line 8</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_commit</span>
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:commit</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'commit'</span>))
+    <span class="ruby-identifier">results</span> = <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">commit_index</span>(<span class="ruby-value str">'my message'</span>)
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-regexp re">/Created commit/</span>, <span class="ruby-identifier">results</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

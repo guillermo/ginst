@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_status (TestIndexStatus)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_index_status.rb, line 28</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_status</span>
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:diff_index</span>).<span class="ruby-identifier">with</span>({}, <span class="ruby-value str">'HEAD'</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'diff_index'</span>))
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:diff_files</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'diff_files'</span>))
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:ls_files</span>).<span class="ruby-identifier">with</span>({<span class="ruby-identifier">:stage</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'ls_files'</span>))
+    <span class="ruby-identifier">status</span> = <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">status</span>
+    <span class="ruby-identifier">stat</span> = <span class="ruby-identifier">status</span>[<span class="ruby-value str">'lib/grit/repo.rb'</span>]
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-identifier">stat</span>.<span class="ruby-identifier">sha_repo</span>, <span class="ruby-value str">&quot;71e930d551c413a123f43e35c632ea6ba3e3705e&quot;</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-identifier">stat</span>.<span class="ruby-identifier">mode_repo</span>, <span class="ruby-value str">&quot;100644&quot;</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-identifier">stat</span>.<span class="ruby-identifier">type</span>, <span class="ruby-value str">&quot;M&quot;</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

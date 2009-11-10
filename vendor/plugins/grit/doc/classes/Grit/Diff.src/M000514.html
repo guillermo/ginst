@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>list_from_string (Grit::Diff)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/diff.rb, line 23</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">list_from_string</span>(<span class="ruby-identifier">repo</span>, <span class="ruby-identifier">text</span>)
+      <span class="ruby-identifier">lines</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+
+      <span class="ruby-identifier">diffs</span> = []
+
+      <span class="ruby-keyword kw">while</span> <span class="ruby-operator">!</span><span class="ruby-identifier">lines</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-identifier">m</span>, <span class="ruby-identifier">a_path</span>, <span class="ruby-identifier">b_path</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">%r{^diff --git a/(.+?) b/(.+)$}</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^old mode/</span>
+          <span class="ruby-identifier">m</span>, <span class="ruby-identifier">a_mode</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^old mode (\d+)/</span>)
+          <span class="ruby-identifier">m</span>, <span class="ruby-identifier">b_mode</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^new mode (\d+)/</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^diff --git/</span>
+          <span class="ruby-identifier">diffs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Diff</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">repo</span>, <span class="ruby-identifier">a_path</span>, <span class="ruby-identifier">b_path</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">a_mode</span>, <span class="ruby-identifier">b_mode</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">nil</span>)
+          <span class="ruby-keyword kw">next</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">new_file</span> = <span class="ruby-keyword kw">false</span>
+        <span class="ruby-identifier">deleted_file</span> = <span class="ruby-keyword kw">false</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^new file/</span>
+          <span class="ruby-identifier">m</span>, <span class="ruby-identifier">b_mode</span> = <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^new file mode (.+)$/</span>)
+          <span class="ruby-identifier">a_mode</span> = <span class="ruby-keyword kw">nil</span>
+          <span class="ruby-identifier">new_file</span> = <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^deleted file/</span>
+          <span class="ruby-identifier">m</span>, <span class="ruby-identifier">a_mode</span> = <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^deleted file mode (.+)$/</span>)
+          <span class="ruby-identifier">b_mode</span> = <span class="ruby-keyword kw">nil</span>
+          <span class="ruby-identifier">deleted_file</span> = <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">m</span>, <span class="ruby-identifier">a_blob</span>, <span class="ruby-identifier">b_blob</span>, <span class="ruby-identifier">b_mode</span> = <span class="ruby-operator">*</span><span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">%r{^index ([0-9A-Fa-f]+)\.\.([0-9A-Fa-f]+) ?(.+)?$}</span>)
+        <span class="ruby-identifier">b_mode</span>.<span class="ruby-identifier">strip!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">b_mode</span>
+
+        <span class="ruby-identifier">diff_lines</span> = []
+        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp re">/^diff/</span>
+          <span class="ruby-identifier">diff_lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">diff</span> = <span class="ruby-identifier">diff_lines</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+
+        <span class="ruby-identifier">diffs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Diff</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">repo</span>, <span class="ruby-identifier">a_path</span>, <span class="ruby-identifier">b_path</span>, <span class="ruby-identifier">a_blob</span>, <span class="ruby-identifier">b_blob</span>, <span class="ruby-identifier">a_mode</span>, <span class="ruby-identifier">b_mode</span>, <span class="ruby-identifier">new_file</span>, <span class="ruby-identifier">deleted_file</span>, <span class="ruby-identifier">diff</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">diffs</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

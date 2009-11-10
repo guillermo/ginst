@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_diff_full (TestRubyGit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_rubygit.rb, line 49</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_diff_full</span>
+    <span class="ruby-identifier">commit1</span> = <span class="ruby-value str">'2d3acf90f35989df8f262dc50beadc4ee3ae1560'</span>
+    <span class="ruby-identifier">commit2</span> = <span class="ruby-value str">'420eac97a826bfac8724b6b0eef35c20922124b7'</span>
+    <span class="ruby-identifier">out</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">diff</span>({<span class="ruby-identifier">:full_index</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}, <span class="ruby-identifier">commit1</span>, <span class="ruby-identifier">commit2</span>)
+    <span class="ruby-identifier">assert_match</span> <span class="ruby-value str">'index 6afcf64c80da8253fa47228eb09bc0eea217e5d1..9e78ddfaabf79f8314cc9a53a2f59775aee06bd7'</span>, <span class="ruby-identifier">out</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

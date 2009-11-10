@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_log_with_path_and_options (TestRepo)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_repo.rb, line 319</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_log_with_path_and_options</span>
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:log</span>).<span class="ruby-identifier">with</span>({<span class="ruby-identifier">:pretty</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'raw'</span>, <span class="ruby-identifier">:max_count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>}, <span class="ruby-value str">'master'</span>, <span class="ruby-value str">'--'</span>, <span class="ruby-value str">'file.rb'</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'rev_list'</span>))
+    <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">'master'</span>, <span class="ruby-value str">'file.rb'</span>, <span class="ruby-identifier">:max_count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

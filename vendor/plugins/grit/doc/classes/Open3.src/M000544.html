@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>popen3 (Open3)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/open3_detach.rb, line 4</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">popen3</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">cmd</span>)
+    <span class="ruby-identifier">pw</span> = <span class="ruby-constant">IO</span><span class="ruby-operator">::</span><span class="ruby-identifier">pipe</span>   <span class="ruby-comment cmt"># pipe[0] for read, pipe[1] for write</span>
+    <span class="ruby-identifier">pr</span> = <span class="ruby-constant">IO</span><span class="ruby-operator">::</span><span class="ruby-identifier">pipe</span>
+    <span class="ruby-identifier">pe</span> = <span class="ruby-constant">IO</span><span class="ruby-operator">::</span><span class="ruby-identifier">pipe</span>
+
+    <span class="ruby-identifier">pid</span> = <span class="ruby-identifier">fork</span>{
+      <span class="ruby-comment cmt"># child</span>
+      <span class="ruby-identifier">fork</span>{
+        <span class="ruby-comment cmt"># grandchild</span>
+        <span class="ruby-identifier">pw</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">close</span>
+        <span class="ruby-constant">STDIN</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-identifier">pw</span>[<span class="ruby-value">0</span>])
+        <span class="ruby-identifier">pw</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">close</span>
+
+        <span class="ruby-identifier">pr</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">close</span>
+        <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-identifier">pr</span>[<span class="ruby-value">1</span>])
+        <span class="ruby-identifier">pr</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">close</span>
+
+        <span class="ruby-identifier">pe</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">close</span>
+        <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-identifier">pe</span>[<span class="ruby-value">1</span>])
+        <span class="ruby-identifier">pe</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">close</span>
+
+        <span class="ruby-identifier">exec</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">cmd</span>)
+      }
+      <span class="ruby-identifier">exit!</span>(<span class="ruby-value">0</span>)
+    }
+
+    <span class="ruby-identifier">pw</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">close</span>
+    <span class="ruby-identifier">pr</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">close</span>
+    <span class="ruby-identifier">pe</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">close</span>
+    <span class="ruby-constant">Process</span>.<span class="ruby-identifier">waitpid</span>(<span class="ruby-identifier">pid</span>)
+    <span class="ruby-identifier">pi</span> = [<span class="ruby-identifier">pw</span>[<span class="ruby-value">1</span>], <span class="ruby-identifier">pr</span>[<span class="ruby-value">0</span>], <span class="ruby-identifier">pe</span>[<span class="ruby-value">0</span>]]
+    <span class="ruby-identifier">pw</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">sync</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span> <span class="ruby-keyword kw">yield</span>
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">yield</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">pi</span>)
+      <span class="ruby-keyword kw">ensure</span>
+        <span class="ruby-constant">Process</span>.<span class="ruby-identifier">detach</span>(<span class="ruby-identifier">pid</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pid</span>
+        <span class="ruby-identifier">pi</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">close</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">closed?</span> }
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">pi</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

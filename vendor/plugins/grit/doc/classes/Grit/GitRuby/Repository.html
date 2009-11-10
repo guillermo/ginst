@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Grit::GitRuby::Repository</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Grit::GitRuby::Repository</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/grit/git-ruby/repository_rb.html">
+                lib/grit/git-ruby/repository.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Object.html">
+                Object
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000295">add_file</a>&nbsp;&nbsp;
+      <a href="#M000291">blame_tree</a>&nbsp;&nbsp;
+      <a href="#M000270">cached</a>&nbsp;&nbsp;
+      <a href="#M000278">cat_file</a>&nbsp;&nbsp;
+      <a href="#M000277">cat_file_size</a>&nbsp;&nbsp;
+      <a href="#M000276">cat_file_type</a>&nbsp;&nbsp;
+      <a href="#M000296">close</a>&nbsp;&nbsp;
+      <a href="#M000294">create_initial_config</a>&nbsp;&nbsp;
+      <a href="#M000287">diff</a>&nbsp;&nbsp;
+      <a href="#M000289">files_changed?</a>&nbsp;&nbsp;
+      <a href="#M000271">get_object_by_sha1</a>&nbsp;&nbsp;
+      <a href="#M000269">get_raw_object_by_sha1</a>&nbsp;&nbsp;
+      <a href="#M000281">get_raw_tree</a>&nbsp;&nbsp;
+      <a href="#M000290">get_subtree</a>&nbsp;&nbsp;
+      <a href="#M000297">git_path</a>&nbsp;&nbsp;
+      <a href="#M000275">in_loose?</a>&nbsp;&nbsp;
+      <a href="#M000274">in_packs?</a>&nbsp;&nbsp;
+      <a href="#M000293">init</a>&nbsp;&nbsp;
+      <a href="#M000279">list_tree</a>&nbsp;&nbsp;
+      <a href="#M000283">log</a>&nbsp;&nbsp;
+      <a href="#M000292">look_for_commits</a>&nbsp;&nbsp;
+      <a href="#M000266">loose</a>&nbsp;&nbsp;
+      <a href="#M000280">ls_tree</a>&nbsp;&nbsp;
+      <a href="#M000282">ls_tree_path</a>&nbsp;&nbsp;
+      <a href="#M000265">new</a>&nbsp;&nbsp;
+      <a href="#M000273">object_exists?</a>&nbsp;&nbsp;
+      <a href="#M000267">packs</a>&nbsp;&nbsp;
+      <a href="#M000272">put_raw_object</a>&nbsp;&nbsp;
+      <a href="#M000288">quick_diff</a>&nbsp;&nbsp;
+      <a href="#M000285">rev_list</a>&nbsp;&nbsp;
+      <a href="#M000268">show</a>&nbsp;&nbsp;
+      <a href="#M000284">truncate_arr</a>&nbsp;&nbsp;
+      <a href="#M000286">walk_log</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Repository/NoSuchPath.html" class="link">Grit::GitRuby::Repository::NoSuchPath</a><br />
+Class <a href="Repository/NoSuchShaFound.html" class="link">Grit::GitRuby::Repository::NoSuchShaFound</a><br />
+
+    </div>
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">git_dir</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">options</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000295" class="method-detail">
+        <a name="M000295"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000295.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000295.html');return false;">
+          <span class="method-name">add_file</span><span class="method-args">(name, contents)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000294" class="method-detail">
+        <a name="M000294"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000294.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000294.html');return false;">
+          <span class="method-name">create_initial_config</span><span class="method-args">(bare = false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000293" class="method-detail">
+        <a name="M000293"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000293.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000293.html');return false;">
+          <span class="method-name">init</span><span class="method-args">(dir, bare = true)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+initialize a git repository
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000265" class="method-detail">
+        <a name="M000265"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000265.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000265.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(git_dir, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000291" class="method-detail">
+        <a name="M000291"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000291.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000291.html');return false;">
+          <span class="method-name">blame_tree</span><span class="method-args">(commit_sha, path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000270" class="method-detail">
+        <a name="M000270"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000270.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000270.html');return false;">
+          <span class="method-name">cached</span><span class="method-args">(key, object, do_cache = true)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000278" class="method-detail">
+        <a name="M000278"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000278.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000278.html');return false;">
+          <span class="method-name">cat_file</span><span class="method-args">(sha)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns the raw file contents of this sha
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000277" class="method-detail">
+        <a name="M000277"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000277.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000277.html');return false;">
+          <span class="method-name">cat_file_size</span><span class="method-args">(sha)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns the file size (as an int) of this sha
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000276" class="method-detail">
+        <a name="M000276"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000276.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000276.html');return false;">
+          <span class="method-name">cat_file_type</span><span class="method-args">(sha)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns the file type (as a symbol) of this sha
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000296" class="method-detail">
+        <a name="M000296"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000296.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000296.html');return false;">
+          <span class="method-name">close</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000287" class="method-detail">
+        <a name="M000287"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000287.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000287.html');return false;">
+          <span class="method-name">diff</span><span class="method-args">(commit1, commit2, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000289" class="method-detail">
+        <a name="M000289"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000289.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000289.html');return false;">
+          <span class="method-name">files_changed?</span><span class="method-args">(tree_sha1, tree_sha2, path_limiter = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns true if the files in path_limiter were changed, or no path limiter
+used by the <a href="Repository.html#M000283">log</a>() function when
+passed with a path_limiter
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000271" class="method-detail">
+        <a name="M000271"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000271.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000271.html');return false;">
+          <span class="method-name">get_object_by_sha1</span><span class="method-args">(sha1)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns <a href="../GitRuby.html">GitRuby</a> object of any type given a
+SHA1
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000269" class="method-detail">
+        <a name="M000269"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000269.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000269.html');return false;">
+          <span class="method-name">get_raw_object_by_sha1</span><span class="method-args">(sha1o)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns a raw object given a SHA1
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000281" class="method-detail">
+        <a name="M000281"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000281.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000281.html');return false;">
+          <span class="method-name">get_raw_tree</span><span class="method-args">(sha)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000290" class="method-detail">
+        <a name="M000290"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000290.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000290.html');return false;">
+          <span class="method-name">get_subtree</span><span class="method-args">(commit_sha, path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000275" class="method-detail">
+        <a name="M000275"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000275.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000275.html');return false;">
+          <span class="method-name">in_loose?</span><span class="method-args">(sha_hex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns true if the hex-packed sha is in the <a
+href="Repository.html#M000266">loose</a> objects
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000274" class="method-detail">
+        <a name="M000274"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000274.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000274.html');return false;">
+          <span class="method-name">in_packs?</span><span class="method-args">(sha_hex)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns true if the hex-packed sha is in the packfiles
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000279" class="method-detail">
+        <a name="M000279"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000279.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000279.html');return false;">
+          <span class="method-name">list_tree</span><span class="method-args">(sha)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns a 2-d hash of the tree
+</p>
+<dl>
+<dt>&#8216;blob&#8217;][&#8216;FILENAME&#8216;</dt><dd>= {:mode =&gt; &#8216;100644&#8217;, :sha =&gt; SHA}
+
+</dd>
+<dt>&#8216;tree&#8217;][&#8216;DIRNAME&#8216;</dt><dd>= {:mode =&gt; &#8216;040000&#8217;, :sha =&gt; SHA}
+
+</dd>
+</dl>
+        </div>
+      </div>
+
+      <div id="method-M000283" class="method-detail">
+        <a name="M000283"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000283.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000283.html');return false;">
+          <span class="method-name">log</span><span class="method-args">(sha, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns an array of <a href="../GitRuby.html">GitRuby</a> <a
+href="Commit.html">Commit</a> objects
+</p>
+<dl>
+<dt> [sha, raw_output], [sha, raw_output], [sha, raw_output</dt><dd>&#8230; ]
+
+</dd>
+</dl>
+<p>
+takes the following options:
+</p>
+<pre>
+ :since - Time object specifying that you don't want commits BEFORE this
+ :until - Time object specifying that you don't want commit AFTER this
+ :first_parent - tells log to only walk first parent
+ :path_limiter - string or array of strings to limit path
+ :max_count - number to limit the output
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000292" class="method-detail">
+        <a name="M000292"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000292.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000292.html');return false;">
+          <span class="method-name">look_for_commits</span><span class="method-args">(commit_sha, path, looking_for, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000266" class="method-detail">
+        <a name="M000266"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000266.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000266.html');return false;">
+          <span class="method-name">loose</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns the <a href="Repository.html#M000266">loose</a> objects object
+lazily
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000280" class="method-detail">
+        <a name="M000280"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000280.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000280.html');return false;">
+          <span class="method-name">ls_tree</span><span class="method-args">(sha, paths = [])</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns the raw (cat-file) output for a tree if given a commit sha, it will
+print the tree of that commit if given a path limiter array, it will limit
+the output to those
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000282" class="method-detail">
+        <a name="M000282"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000282.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000282.html');return false;">
+          <span class="method-name">ls_tree_path</span><span class="method-args">(sha, path, append = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+return array of tree entries
+</p>
+<pre>
+ TODO : refactor this to remove the fugly
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000273" class="method-detail">
+        <a name="M000273"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000273.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000273.html');return false;">
+          <span class="method-name">object_exists?</span><span class="method-args">(sha1)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns true or false if that sha exists in the db
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000267" class="method-detail">
+        <a name="M000267"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000267.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000267.html');return false;">
+          <span class="method-name">packs</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+returns the array of pack list objects
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000272" class="method-detail">
+        <a name="M000272"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000272.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000272.html');return false;">
+          <span class="method-name">put_raw_object</span><span class="method-args">(content, type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+writes a raw object into the git repo
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000288" class="method-detail">
+        <a name="M000288"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000288.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000288.html');return false;">
+          <span class="method-name">quick_diff</span><span class="method-args">(tree1, tree2, path = '.', recurse = true)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+takes 2 tree shas and recursively walks them to find out what files or
+directories have been modified in them and returns an array of changes [
+[full_path, &#8216;added&#8217;, tree1_hash, nil],
+</p>
+<pre>
+  [full_path, 'removed', nil, tree2_hash],
+  [full_path, 'modified', tree1_hash, tree2_hash]
+ ]
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000285" class="method-detail">
+        <a name="M000285"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000285.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000285.html');return false;">
+          <span class="method-name">rev_list</span><span class="method-args">(sha, options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000268" class="method-detail">
+        <a name="M000268"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000268.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000268.html');return false;">
+          <span class="method-name">show</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+prints out the type, shas and content of all of the pack files
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000284" class="method-detail">
+        <a name="M000284"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000284.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000284.html');return false;">
+          <span class="method-name">truncate_arr</span><span class="method-args">(arr, sha)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000286" class="method-detail">
+        <a name="M000286"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000286.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000286.html');return false;">
+          <span class="method-name">walk_log</span><span class="method-args">(sha, opts, total_size = 0)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+called by <a href="Repository.html#M000283">log</a>() to recursively walk
+the tree
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000297" class="method-detail">
+        <a name="M000297"></a>
+
+        <div class="method-heading">
+          <a href="Repository.src/M000297.html" target="Code" class="method-signature"
+            onclick="popupCode('Repository.src/M000297.html');return false;">
+          <span class="method-name">git_path</span><span class="method-args">(path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

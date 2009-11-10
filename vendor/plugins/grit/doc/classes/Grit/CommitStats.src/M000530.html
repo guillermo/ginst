@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>list_from_string (Grit::CommitStats)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/commit_stats.rb, line 52</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">list_from_string</span>(<span class="ruby-identifier">repo</span>, <span class="ruby-identifier">text</span>)
+      <span class="ruby-identifier">lines</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+
+      <span class="ruby-identifier">commits</span> = []
+
+      <span class="ruby-keyword kw">while</span> <span class="ruby-operator">!</span><span class="ruby-identifier">lines</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-identifier">id</span> = <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>.<span class="ruby-identifier">split</span>.<span class="ruby-identifier">last</span>
+
+        <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>
+        <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>
+        <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>
+
+        <span class="ruby-identifier">message_lines</span> = []
+        <span class="ruby-identifier">message_lines</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>[<span class="ruby-value">4</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>] <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^ {4}/</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-value str">''</span>
+
+        <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">empty?</span>
+
+        <span class="ruby-identifier">files</span> = []
+        <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^([-\d]+)\s+([-\d]+)\s+(.+)/</span>
+          (<span class="ruby-identifier">additions</span>, <span class="ruby-identifier">deletions</span>, <span class="ruby-identifier">filename</span>) = <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span>.<span class="ruby-identifier">split</span>
+          <span class="ruby-identifier">additions</span> = <span class="ruby-identifier">additions</span>.<span class="ruby-identifier">to_i</span>
+          <span class="ruby-identifier">deletions</span> = <span class="ruby-identifier">deletions</span>.<span class="ruby-identifier">to_i</span>
+          <span class="ruby-identifier">total</span> = <span class="ruby-identifier">additions</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">deletions</span>
+          <span class="ruby-identifier">files</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">additions</span>, <span class="ruby-identifier">deletions</span>, <span class="ruby-identifier">total</span>]
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">empty?</span>
+
+        <span class="ruby-identifier">commits</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">id</span>, <span class="ruby-constant">CommitStats</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">repo</span>, <span class="ruby-identifier">id</span>, <span class="ruby-identifier">files</span>)]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">commits</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

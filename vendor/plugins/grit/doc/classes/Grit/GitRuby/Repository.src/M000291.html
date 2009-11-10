@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>blame_tree (Grit::GitRuby::Repository)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby/repository.rb, line 540</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">blame_tree</span>(<span class="ruby-identifier">commit_sha</span>, <span class="ruby-identifier">path</span>)
+        <span class="ruby-comment cmt"># find subtree</span>
+        <span class="ruby-identifier">tree_sha</span> = <span class="ruby-identifier">get_subtree</span>(<span class="ruby-identifier">commit_sha</span>, <span class="ruby-identifier">path</span>)
+        <span class="ruby-keyword kw">return</span> {} <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">tree_sha</span>
+
+        <span class="ruby-identifier">looking_for</span> = []
+        <span class="ruby-identifier">get_object_by_sha1</span>(<span class="ruby-identifier">tree_sha</span>).<span class="ruby-identifier">entry</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">looking_for</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'.'</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-ivar">@already_searched</span> = {}
+        <span class="ruby-identifier">commits</span> = <span class="ruby-identifier">look_for_commits</span>(<span class="ruby-identifier">commit_sha</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">looking_for</span>)
+
+        <span class="ruby-comment cmt"># cleaning up array</span>
+        <span class="ruby-identifier">arr</span> = {}
+        <span class="ruby-identifier">commits</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">commit_array</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">key</span> = <span class="ruby-identifier">commit_array</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'./'</span>, <span class="ruby-value str">''</span>)
+          <span class="ruby-identifier">arr</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">commit_array</span>[<span class="ruby-value">1</span>]
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">arr</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

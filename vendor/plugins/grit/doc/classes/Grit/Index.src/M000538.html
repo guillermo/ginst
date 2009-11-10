@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>write_tree (Grit::Index)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/index.rb, line 82</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_tree</span>(<span class="ruby-identifier">tree</span>, <span class="ruby-identifier">now_tree</span> = <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-identifier">tree_contents</span> = {}
+
+      <span class="ruby-comment cmt"># fill in original tree</span>
+      <span class="ruby-identifier">now_tree</span>.<span class="ruby-identifier">contents</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">obj</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">sha</span> = [<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">id</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;H*&quot;</span>)
+        <span class="ruby-identifier">k</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">name</span>
+        <span class="ruby-identifier">k</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">'/'</span> <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Grit</span><span class="ruby-operator">::</span><span class="ruby-constant">Tree</span>)
+        <span class="ruby-identifier">tree_contents</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-value str">&quot;%s %s\0%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">mode</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">sha</span>]
+      <span class="ruby-keyword kw">end</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">now_tree</span>
+
+      <span class="ruby-comment cmt"># overwrite with new tree contents</span>
+      <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">v</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+            <span class="ruby-identifier">sha</span> = <span class="ruby-identifier">write_blob</span>(<span class="ruby-identifier">v</span>)
+            <span class="ruby-identifier">sha</span> = [<span class="ruby-identifier">sha</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;H*&quot;</span>)
+            <span class="ruby-identifier">str</span> = <span class="ruby-value str">&quot;%s %s\0%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-value str">'100644'</span>, <span class="ruby-identifier">k</span>, <span class="ruby-identifier">sha</span>]
+            <span class="ruby-identifier">tree_contents</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">str</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+            <span class="ruby-identifier">ctree</span> = <span class="ruby-identifier">now_tree</span><span class="ruby-operator">/</span><span class="ruby-identifier">k</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">now_tree</span>
+            <span class="ruby-identifier">sha</span> = <span class="ruby-identifier">write_tree</span>(<span class="ruby-identifier">v</span>, <span class="ruby-identifier">ctree</span>)
+            <span class="ruby-identifier">sha</span> = [<span class="ruby-identifier">sha</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;H*&quot;</span>)
+            <span class="ruby-identifier">str</span> = <span class="ruby-value str">&quot;%s %s\0%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-value str">'040000'</span>, <span class="ruby-identifier">k</span>, <span class="ruby-identifier">sha</span>]
+            <span class="ruby-identifier">tree_contents</span>[<span class="ruby-identifier">k</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'/'</span>] = <span class="ruby-identifier">str</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">tr</span> = <span class="ruby-identifier">tree_contents</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">''</span>)
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">repo</span>.<span class="ruby-identifier">git</span>.<span class="ruby-identifier">put_raw_object</span>(<span class="ruby-identifier">tr</span>, <span class="ruby-value str">'tree'</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

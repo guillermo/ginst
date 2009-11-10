@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_depth_blame (TestBlame)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_blame.rb, line 21</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_depth_blame</span>
+    <span class="ruby-identifier">commit</span> = <span class="ruby-value str">'2d3acf90f35989df8f262dc50beadc4ee3ae1560'</span>
+    <span class="ruby-identifier">blame</span> = <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">blame</span>(<span class="ruby-value str">'lib/grit.rb'</span>, <span class="ruby-identifier">commit</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">37</span>, <span class="ruby-identifier">blame</span>.<span class="ruby-identifier">lines</span>.<span class="ruby-identifier">size</span>
+    <span class="ruby-identifier">line</span> = <span class="ruby-identifier">blame</span>.<span class="ruby-identifier">lines</span>[<span class="ruby-value">24</span>]
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">&quot;require 'grit/diff'&quot;</span>, <span class="ruby-identifier">line</span>.<span class="ruby-identifier">line</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">25</span>, <span class="ruby-identifier">line</span>.<span class="ruby-identifier">lineno</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">16</span>, <span class="ruby-identifier">line</span>.<span class="ruby-identifier">oldlineno</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'46291865ba0f6e0c9818b11be799fe2db6964d56'</span>, <span class="ruby-identifier">line</span>.<span class="ruby-identifier">commit</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

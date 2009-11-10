@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>init (Grit::GitRuby::Repository)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby/repository.rb, line 609</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">init</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-identifier">bare</span> = <span class="ruby-keyword kw">true</span>)
+
+        <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-identifier">dir</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">dir</span>)
+
+        <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">cd</span>(<span class="ruby-identifier">dir</span>) <span class="ruby-keyword kw">do</span>
+          <span class="ruby-keyword kw">if</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-value str">'objects'</span>))
+            <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-comment cmt"># already initialized</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-comment cmt"># initialize directory</span>
+            <span class="ruby-identifier">create_initial_config</span>(<span class="ruby-identifier">bare</span>)
+            <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-value str">'refs/heads'</span>)
+            <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-value str">'refs/tags'</span>)
+            <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-value str">'objects/info'</span>)
+            <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-value str">'objects/pack'</span>)
+            <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-value str">'branches'</span>)
+            <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'description'</span>, <span class="ruby-value str">'Unnamed repository; edit this file to name it for gitweb.'</span>)
+            <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'HEAD'</span>, <span class="ruby-value str">&quot;ref: refs/heads/master\n&quot;</span>)
+            <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-value str">'hooks'</span>)
+            <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">cd</span>(<span class="ruby-value str">'hooks'</span>) <span class="ruby-keyword kw">do</span>
+              <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'applypatch-msg'</span>, <span class="ruby-value str">'# add shell script and make executable to enable'</span>)
+              <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'post-commit'</span>, <span class="ruby-value str">'# add shell script and make executable to enable'</span>)
+              <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'post-receive'</span>, <span class="ruby-value str">'# add shell script and make executable to enable'</span>)
+              <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'post-update'</span>, <span class="ruby-value str">'# add shell script and make executable to enable'</span>)
+              <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'pre-applypatch'</span>, <span class="ruby-value str">'# add shell script and make executable to enable'</span>)
+              <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'pre-commit'</span>, <span class="ruby-value str">'# add shell script and make executable to enable'</span>)
+              <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'pre-rebase'</span>, <span class="ruby-value str">'# add shell script and make executable to enable'</span>)
+              <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'update'</span>, <span class="ruby-value str">'# add shell script and make executable to enable'</span>)
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-value str">'info'</span>)
+            <span class="ruby-identifier">add_file</span>(<span class="ruby-value str">'info/exclude'</span>, <span class="ruby-value str">&quot;# *.[oa]\n# *~&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

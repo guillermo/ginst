@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>rev_parse (Grit::GitRuby)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby.rb, line 68</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rev_parse</span>(<span class="ruby-identifier">options</span>, <span class="ruby-identifier">string</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;invalid string: #{string}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">string</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">string</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\.\./</span>
+        (<span class="ruby-identifier">sha1</span>, <span class="ruby-identifier">sha2</span>) = <span class="ruby-identifier">string</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'..'</span>)
+        <span class="ruby-keyword kw">return</span> [<span class="ruby-identifier">rev_parse</span>({}, <span class="ruby-identifier">sha1</span>), <span class="ruby-identifier">rev_parse</span>({}, <span class="ruby-identifier">sha2</span>)]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-regexp re">/^[0-9a-f]{40}$/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">string</span>)  <span class="ruby-comment cmt"># passing in a sha - just no-op it</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">string</span>.<span class="ruby-identifier">chomp</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">head</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@git_dir</span>, <span class="ruby-value str">'refs'</span>, <span class="ruby-value str">'heads'</span>, <span class="ruby-identifier">string</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">head</span>).<span class="ruby-identifier">chomp</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">head</span>)
+
+      <span class="ruby-identifier">head</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@git_dir</span>, <span class="ruby-value str">'refs'</span>, <span class="ruby-value str">'remotes'</span>, <span class="ruby-identifier">string</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">head</span>).<span class="ruby-identifier">chomp</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">head</span>)
+
+      <span class="ruby-identifier">head</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@git_dir</span>, <span class="ruby-value str">'refs'</span>, <span class="ruby-value str">'tags'</span>, <span class="ruby-identifier">string</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">head</span>).<span class="ruby-identifier">chomp</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">head</span>)
+
+      <span class="ruby-comment cmt">## check packed-refs file, too</span>
+      <span class="ruby-identifier">packref</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@git_dir</span>, <span class="ruby-value str">'packed-refs'</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">packref</span>)
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">readlines</span>(<span class="ruby-identifier">packref</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span> = <span class="ruby-regexp re">/^(\w{40}) refs\/.+?\/(.*?)$/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">line</span>)
+            <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">string</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">'$'</span>).<span class="ruby-identifier">match</span>(<span class="ruby-identifier">m</span>[<span class="ruby-value">3</span>])
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">chomp</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt">## !! more - partials and such !!</span>
+
+      <span class="ruby-comment cmt"># revert to calling git - grr</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-value str">'rev-parse'</span>, {}, <span class="ruby-identifier">string</span>).<span class="ruby-identifier">chomp</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

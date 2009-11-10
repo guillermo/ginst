@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_alternates_with_two_alternates (TestRepo)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_repo.rb, line 256</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_alternates_with_two_alternates</span>
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:exist?</span>).<span class="ruby-identifier">with</span>(<span class="ruby-node">&quot;#{absolute_project_path}/.git/objects/info/alternates&quot;</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-keyword kw">true</span>)
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:read</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-value str">&quot;/path/to/repo1/.git/objects\n/path/to/repo2.git/objects\n&quot;</span>)
+
+    <span class="ruby-identifier">assert_equal</span> [<span class="ruby-value str">&quot;/path/to/repo1/.git/objects&quot;</span>, <span class="ruby-value str">&quot;/path/to/repo2.git/objects&quot;</span>], <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">alternates</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

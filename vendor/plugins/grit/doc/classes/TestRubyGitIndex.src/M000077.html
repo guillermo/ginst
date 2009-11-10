@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_modify_file (TestRubyGitIndex)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_rubygit_index.rb, line 65</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_modify_file</span>
+    <span class="ruby-identifier">sha</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">commits</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">tree</span>.<span class="ruby-identifier">id</span>
+
+    <span class="ruby-identifier">i</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">index</span>
+    <span class="ruby-identifier">i</span>.<span class="ruby-identifier">read_tree</span>(<span class="ruby-identifier">sha</span>)
+    <span class="ruby-identifier">i</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value str">'README.txt'</span>, <span class="ruby-value str">'test more stuff'</span>)
+    <span class="ruby-identifier">i</span>.<span class="ruby-identifier">commit</span>(<span class="ruby-value str">'message'</span>, [<span class="ruby-ivar">@git</span>.<span class="ruby-identifier">commits</span>.<span class="ruby-identifier">first</span>], <span class="ruby-ivar">@user</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-value str">'master'</span>)
+
+    <span class="ruby-identifier">b</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">commits</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">tree</span><span class="ruby-operator">/</span><span class="ruby-value str">'README.txt'</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'e45d6b418e34951ddaa3e78e4fc4d3d92a46d3d1'</span>, <span class="ruby-identifier">b</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_diffs (TestCommit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_commit.rb, line 84</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_diffs</span>
+    <span class="ruby-comment cmt"># git diff --full-index 91169e1f5fa4de2eaea3f176461f5dc784796769 &gt; test/fixtures/diff_p</span>
+
+    <span class="ruby-constant">Git</span>.<span class="ruby-identifier">any_instance</span>.<span class="ruby-identifier">expects</span>(<span class="ruby-identifier">:diff</span>).<span class="ruby-identifier">returns</span>(<span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'diff_p'</span>))
+    <span class="ruby-ivar">@c</span> = <span class="ruby-constant">Commit</span>.<span class="ruby-identifier">create</span>(<span class="ruby-ivar">@r</span>, <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'91169e1f5fa4de2eaea3f176461f5dc784796769'</span>)
+    <span class="ruby-identifier">diffs</span> = <span class="ruby-ivar">@c</span>.<span class="ruby-identifier">diffs</span>
+
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value">15</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">size</span>
+
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'.gitignore'</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">a_path</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'.gitignore'</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">b_path</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'4ebc8aea50e0a67e000ba29a30809d0a7b9b2666'</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">a_blob</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'2dd02534615434d88c51307beb0f0092f21fd103'</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">b_blob</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'100644'</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">b_mode</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">new_file</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">deleted_file</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">&quot;--- a/.gitignore\n+++ b/.gitignore\n@@ -1 +1,2 @@\n coverage\n+pkg&quot;</span>, <span class="ruby-identifier">diffs</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">diff</span>
+
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'lib/grit/actor.rb'</span>, <span class="ruby-identifier">diffs</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">a_path</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">diffs</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">a_blob</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'f733bce6b57c0e5e353206e692b0e3105c2527f4'</span>, <span class="ruby-identifier">diffs</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">b_blob</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">diffs</span>[<span class="ruby-value">5</span>].<span class="ruby-identifier">new_file</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

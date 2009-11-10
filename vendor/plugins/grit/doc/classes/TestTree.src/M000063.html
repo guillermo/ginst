@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_content_from_string_tree_should_return_tree (TestTree)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_tree.rb, line 31</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_content_from_string_tree_should_return_tree</span>
+    <span class="ruby-identifier">text</span> = <span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'ls_tree_a'</span>).<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">last</span>
+
+    <span class="ruby-identifier">tree</span> = <span class="ruby-ivar">@t</span>.<span class="ruby-identifier">content_from_string</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">text</span>)
+
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-constant">Tree</span>, <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">class</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">&quot;650fa3f0c17f1edb4ae53d8dcca4ac59d86e6c44&quot;</span>, <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">id</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">&quot;040000&quot;</span>, <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">mode</span>
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">&quot;test&quot;</span>, <span class="ruby-identifier">tree</span>.<span class="ruby-identifier">name</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

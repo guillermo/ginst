@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>setup_tables (Grit::CommitDb)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/grit/git-ruby/commit_db.rb, line 35</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup_tables</span>
+        <span class="ruby-ivar">@db</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;create table meta (meta_key text, meta_value text)&quot;</span>
+        <span class="ruby-ivar">@db</span>[<span class="ruby-identifier">:meta</span>] <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">:meta_key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'schema'</span>, <span class="ruby-identifier">:meta_value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">SCHEMA_VERSION</span>}
+
+        <span class="ruby-ivar">@db</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;create table commits (id integer, sha text, author_date integer)&quot;</span>
+        <span class="ruby-ivar">@db</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;create table nodes (id integer, path text, type text)&quot;</span>
+        <span class="ruby-ivar">@db</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;create table branches (id integer, ref text, commit_id integer)&quot;</span>
+
+        <span class="ruby-ivar">@db</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;create table commit_branches (commit_id integer, branch_id integer)&quot;</span>
+        <span class="ruby-ivar">@db</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;create table commit_nodes (commit_id integer, node_id integer, node_sha string)&quot;</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

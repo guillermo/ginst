@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_master (TestHead)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_head.rb, line 15</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_master</span>
+    <span class="ruby-identifier">head</span> = <span class="ruby-ivar">@r</span>.<span class="ruby-identifier">commit</span>(<span class="ruby-value str">'master'</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-value str">'ca8a30f5a7f0f163bbe3b6f0abf18a6c83b0687a'</span>, <span class="ruby-identifier">head</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

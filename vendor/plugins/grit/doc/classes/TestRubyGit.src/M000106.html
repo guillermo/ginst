@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>test_ls_tree_paths_multi (TestRubyGit)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/test_rubygit.rb, line 149</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_ls_tree_paths_multi</span>
+    <span class="ruby-identifier">paths</span> = [<span class="ruby-value str">'History.txt'</span>, <span class="ruby-value str">'lib/grit.rb'</span>]
+    <span class="ruby-identifier">out</span> = <span class="ruby-ivar">@git</span>.<span class="ruby-identifier">ls_tree</span>({}, <span class="ruby-ivar">@tree_sha</span>, <span class="ruby-identifier">paths</span>)
+    <span class="ruby-identifier">assert_equal</span> <span class="ruby-identifier">out</span>, <span class="ruby-identifier">fixture</span>(<span class="ruby-value str">'ls_tree_paths_ruby_deep'</span>).<span class="ruby-identifier">chomp</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
