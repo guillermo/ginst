@@ -1,7 +1,7 @@
-<% content_for :submenu do %>
-<%= show_branch_links %>
-<% end %>
+<%% content_for :submenu do %>
+<%%= show_branch_links %>
+<%% end %>
 
 <ul>
-<%= render :partial => 'commit', :collection => @commits %>
+<%%= render :partial => 'commit', :collection => @commits %>
 </ul>
