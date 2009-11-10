@@ -31,6 +31,7 @@ module Ginst
     @@root
   end
   
+  VERSION = File.read(root+'/VERSION')
 end
 
 # Add vendorized gems to load path
