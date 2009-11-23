@@ -17,13 +17,15 @@ module Ginst
   autoload(:Configuration, 'ginst/configuration')
   autoload(:CLI, 'ginst/cli')
   autoload(:WebServer, 'ginst/web_server')
+  autoload(:Console, 'ginst/console')
   
   def self.data_dir
     return @@data_dir if @@data_dir
     if ENV['GINST_DATA']
       @@data_dir = ENV['GINST_DATA']
     else
-      raise "Ginst need a directory to work on!!!\nPlease define GINST_DATA environment variable"
+      $stderr <<  "Ginst need a directory to work on!!!\nPlease define GINST_DATA environment variable"
+      @@data_dir = nil
     end
   end
   

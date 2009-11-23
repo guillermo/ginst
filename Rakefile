@@ -17,12 +17,9 @@ begin
     gem.homepage = "http://guillermo.github.com/ginst"
     gem.authors = ["Guillermo Álvarez Fernández"]
     gem.rubyforge_project = "ginst"
-    gem.add_development_dependency "rspec", ">= 1.2.9"
-    gem.add_development_dependency "cucumber", ">= 0"
     gem.add_dependency "sys-proctable"
     gem.add_dependency "mime-types"
     gem.add_dependency "mongrel"
-    gem.add_dependency "rspec"
     
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
@@ -34,32 +31,30 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
 end
 
-require 'spec/rake/spectask'
-Spec::Rake::SpecTask.new(:spec) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.spec_files = FileList['spec/**/*_spec.rb']
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test' << 'app/*'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
 end
-
-Spec::Rake::SpecTask.new(:rcov) do |spec|
-  spec.libs << 'lib' << 'spec'
-  spec.pattern = 'spec/**/*_spec.rb'
-  spec.rcov = true
-end
-
-task :spec => :check_dependencies
 
 begin
-  require 'cucumber/rake/task'
-  Cucumber::Rake::Task.new(:features)
-
-  task :features => :check_dependencies
+  require 'rcov/rcovtask'
+  Rcov::RcovTask.new do |test|
+    test.libs << 'lib' << 'test' << 'app/*'
+    test.pattern = 'test/**/test_*.rb'
+    test.verbose = true
+  end
 rescue LoadError
-  task :features do
-    abort "Cucumber is not available. In order to run features, you must: sudo gem install cucumber"
+  task :rcov do
+    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
   end
 end
 
-task :default => :spec
+task :test => :check_dependencies
+task :'test:integration' => [:install] # Integration test need the gem to be installed
+
+task :default => :test
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|

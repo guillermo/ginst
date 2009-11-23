@@ -1,7 +1,7 @@
 module ProjectsHelper
   
   def show_branch_links
-    content_tag :ul, :id => 'heads', :class => 'tabs' do
+    content_tag :ul, :class => 'submenu' do
       @project.branchs.map{ |h|
         content_tag :li do
           link_to_unless params["branch"]==h.name,  h.name,"?branch=#{h.name}"
@@ -10,9 +10,14 @@ module ProjectsHelper
     end
   end
   
-  def gravatar_url_for(commit, size = 30)
-    md5 = Digest::MD5.hexdigest(commit.author.email.strip.downcase)
-    "http://www.gravatar.com/avatar/#{md5}?s=30"
+  def gravatar_img_for(commit,size = 30)
+    "<img class=\"avatar_#{size}\" src=\"#{gravatar_url_for(commit, size)}\" alt=\"#{commit.author.name}\" />"
+  end
+  
+  def gravatar_url_for(email, size = 30)
+    email = email.author.email.strip.downcase unless email.kind_of? String
+    md5 = Digest::MD5.hexdigest(email)
+    "http://www.gravatar.com/avatar/#{md5}?s=#{size}"
   end
   
   def show_time(time)

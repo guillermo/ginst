@@ -46,7 +46,7 @@ class Project < ActiveRecord::Base
     Rails.logger.debug "[#{Time.current.to_s(:small)}] * Creating repo for #{name}"
 
     command = "cd #{local_repo_dir}
-    git fetch -t
+    git fetch -fv origin
     "
 
     tasks.create(

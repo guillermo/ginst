@@ -26,10 +26,10 @@
     <div id="header">
       <h1><%= @project.slug %></h1>
       <ul class="tabs">
+        <%= plugins_links %>
         <li><%= link_to 'Commits', project_commits_path(@project) %></li>
         <li><%= link_to 'Tasks', project_tasks_path(@project) %></li>
         <li><%= link_to 'Admin', edit_project_path(@project) %></li>
-        <%= plugins_links %>
       </ul>
     </div>
 

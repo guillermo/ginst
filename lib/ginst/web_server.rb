@@ -1,7 +1,12 @@
 class Ginst::WebServer
   
   require('daemons')
+  require('yaml')
 
+  def self.development
+    execute('start')
+  end
+  
   def self.start
     execute('start')
   end
@@ -25,8 +30,15 @@ class Ginst::WebServer
   private
 
   def self.execute(command)
-    script = Ginst.root+'/script/server'
-
+    script = 
+    if ['start','restart','run'].include? command
+      config = read_config
+      script = [Ginst.root+'/script/server', '-b',config["address"],'-p', config["port"].to_s].join(' ')
+    else
+      script = Ginst.root+'/script/server'
+    end
+    
+      
     if command == 'status'
       capture_output do
         Daemons.run(script, generate_options_for_command(command))      
@@ -51,15 +63,25 @@ class Ginst::WebServer
   end
 
   def self.generate_options_for_command(command)
-    options = {
+    argv = [command]
+    
+    {
       :app_name => 'ginst',
       :dir_mode => :normal,
       :dir => File.expand_path((Ginst.data_dir || ENV['GINST_DIR'])+'/tmp'),
       :monitor => false,
       :mode => :exec,
       :log_output => true,
-      :ARGV => [command]
-    }  
+      :ARGV => argv
+    }     
   end
+  
+  def self.read_config
+    options = {"address" => '0.0.0.0', "port" => 3000}
+    config_file = Ginst.data_dir+"/webserver.yml"
+    config_options = YAML.load(File.read(config_file)) rescue {}
+    options.merge(config_options)
+  end
+  
 end
 

@@ -13,6 +13,7 @@ module Ginst::Template
     end
   
     template :database, 'database.yml'
+    template :config, 'webserver.yml'
 
     empty_directory :log, "log"
     empty_directory :projects, "projects"

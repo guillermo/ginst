@@ -10,18 +10,7 @@ class Ginst::CLI
   def run
     
     if @install
-      puts("#{green('Installing ginst')} in: #{@dir}\n")
-      
-      ask_yes_or_exit("#{@dir} is a valid ginst install. Overwrite?") if(valid_dir?(@dir))   
-      launch_generator
-      launch_migrations
-      puts green("Ginst was installed")
-      puts green("Starting the server")
-      puts `#{$0} start -d #{@dir}`
-      sleep 4
-      `open http://localhost:3000 2> /dev/null`
-      puts "Use '#{$0} start -d #{@dir}' to start ginst."
-      
+      install
     elsif @daemon 
       if valid_dir?(@dir)
         daemon(@daemon,@dir)
@@ -35,13 +24,13 @@ class Ginst::CLI
   
   def parse_args(argv)
     @action = nil
-    @dir    = ENV["GINST_DATA"] || Dir.pwd
+    @dir    = File.expand_path(ENV["GINST_DATA"] || Dir.pwd)
     @daemon = false
     @install = false
     while(current_arg = ARGV.shift) do 
       case current_arg
       when '-d'
-        @dir = ARGV.shift
+        @dir = File.expand_path(ARGV.shift)
       when '-p'
         @port = ARGV.shift
       when '-a'
@@ -58,7 +47,7 @@ class Ginst::CLI
         @daemon = current_arg
       when 'install'
         @install = 'install'
-      when '-h', '--help'
+      when '--help'
         show_help_and_exit
       else
         error_and_exit("Invalid argument: #{current_arg}")
@@ -83,36 +72,27 @@ class Ginst::CLI
   end
   
   def daemon(action,dir)
-    script = Ginst.root+'/script/server'
-    options = {
-      :app_name => 'ginst',
-      :dir_mode => :normal,
-      :dir => File.expand_path(@dir+'/log'),
-      :monitor => false,
-      :log_output => true,
-      :mode => :exec,
-      :ARGV => [action]
-    }
-    
+    Dir.chdir @dir    
     case action
     when 'development'
       ENV['RAILS_ENV'] = 'development'
-      daemon('run',dir)
-    when 'status'
-      Daemons.run(script, options)
+      Ginst::WebServer.run
     when 'console'
       ENV['RAILS_ENV'] = 'development'
-      exec(Ginst.root+'/script/console')
+      Ginst::Console.start
     else
-      pid = fork do
-        Daemons.run(script, options)
-        exit
-      end
-      Process.waitpid2(pid)
-      sleep 2
-      daemon('status',dir)
-      exit
+      Ginst::WebServer.send(action.to_sym)
     end
+  end
+  
+  def install
+    puts("#{green('Installing ginst')} in: #{@dir}\n")
+    
+    ask_yes_or_exit("#{@dir} is a valid ginst install. Overwrite?") if(valid_dir?(@dir))   
+    launch_generator
+    launch_migrations
+    puts green("Ginst was installed")
+    puts "run '#{File.basename($0)} start -d #{@dir}' to start ginst."
   end
   
   def launch_migrations
@@ -147,7 +127,7 @@ class Ginst::CLI
          "   run     [-d dir]      # Run ginst in foreground\n"+
          "   development [-d dir]  # Start ginst in developer mode\n"+
          "   console [-d dir]      # Start ginst console\n\n"+
-         "   -h, --help            # Show this help\n\n")
+         "   --help                # Show this help\n\n")
     exit(-1)
   end
   

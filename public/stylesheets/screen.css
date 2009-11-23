@@ -1,6 +1,7 @@
 /* @override 
 	http://localhost:3000/stylesheets/screen.css
 	http://dev.jobandtalent.com/stylesheets/screen.css
+	http://dev.jobandtalent.com:9999/stylesheets/screen.css
 */
 
 /* @group Reset */
@@ -23,24 +24,6 @@ body {
 
 /* @group Site */
 
-ul.tabs {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-ul.tabs li {
-  float: left;
-  list-style: none;
-  margin: 0 5px;
-  padding: 0;
-}
-
-ul.tabs li a {
-  float: left;
-  display: block;
-}
-
 #page {
   margin: 0 auto;
   width: 95em;
@@ -55,20 +38,35 @@ ul.tabs li a {
 
 /* @group Header */
 
+
 #header {
   margin-top: 20px;
 }
 
-#header .tabs {
-  border-bottom: 1px solid #ddd;
+#header h1 {
+  font-size: 10em;
+  overflow: hidden;
+  line-height: 1em;
 }
 
-#header .tabs li {
+#header ul.tabs {
+  border-bottom: 1px solid #ddd;
+  overflow: hidden;
+
+}
+
+#header ul.tabs li {
+  float: left;
+  list-style: none;
+  margin: 0 1em;
+  padding: 0;
   margin-right: 1px;
   font-size: 1.2em;
 }
 
-#header .tabs a {
+#header ul.tabs a {
+  float: left;
+  display: block;
   padding: 5px 15px;
   background: #ddd;
   color: #666;
@@ -80,17 +78,44 @@ ul.tabs li a {
   font-size: 1.2em;
 }
 
-#header h1 {
-  font-size: 10em;
-  overflow: hidden;
-  line-height: 1em;
-}
 
 /*
 
 @end */
 
-/* @group My Group */
+/* @group Submenu */
+
+ul.submenu {
+	list-style: none;
+	font-weight: bolder;
+	margin:  1em;
+    width: 95em;
+    overflow: hidden;
+}
+
+ul.submenu  li{
+	float:  left;
+	margin: 0.2em 2em 0.2em 0;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+	background: #ddd ;
+	padding:  0.2em 0.8em;
+}
+
+ul.submenu li a{
+	display:  block;
+	text-decoration: none;
+}
+
+
+/* @end */
+
+
+
+
+
+
+/* @group Undefined */
 
 #body {
   margin-top: 20px;
@@ -177,7 +202,7 @@ fieldset dd{
 
 /* @group Item list */
 
-ul li {
+#body ul li {
   -moz-border-radius: 0.5em;
   -webkit-border-radius: 0.5em;
   margin-bottom: 0.5em;
@@ -254,9 +279,18 @@ ul li {
   float: left;
   padding: 0.2em;
   background: white;
+}
+
+.grit_commit img.avatar_30 {
   width: 30px;
   height: 30px;
 }
+.grit_commit img.avatar_20 {
+  width: 20px;
+  height: 20px;
+}
+
+
 
 .grit_commit p a.prepared {
   background: url('/images/task_prepared_small.png');

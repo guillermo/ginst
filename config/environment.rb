@@ -21,15 +21,15 @@ Rails::Initializer.run do |config|
   config.gem 'daemons'
   config.gem 'templater'
 
-  config.database_configuration_file = Ginst.data_dir+'/database.yml'
-  config.log_path = Ginst.data_dir+'/log/ginst.rails.log'
-  config.plugin_paths = [RAILS_ROOT+'/vendor/plugins', Ginst.data_dir+'/plugins']
+  config.database_configuration_file = Ginst.data_dir+'/database.yml' if Ginst.data_dir
+  config.log_path = Ginst.data_dir+'/log/ginst.rails.log' if Ginst.data_dir
+  config.plugin_paths = [RAILS_ROOT+'/vendor/plugins', Ginst.data_dir+'/plugins'] if Ginst.data_dir
 
   config.reload_plugins = true if RAILS_ENV == 'development'
 
   config.plugins = [ :authlogic, :grit, :slugify, :all ]
 
-  config.load_paths += [Ginst.data_dir+'/lib']
+  config.load_paths += [Ginst.data_dir+'/lib'] if Ginst.data_dir
 
   config.time_zone = 'UTC'
 

@@ -12,11 +12,7 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resource :status, :controller => :status
-  map.resource :user_session
-  map.root :controller => "user_sessions", :action => "new" # optional, this just sets the root route
-  map.resource :account, :controller => "users"
-  map.resources :users
-
+  map.root :controller => "projects", :action => "index" 
 
   # The priority is based upon order of creation: first created -> highest priority.
 
