@@ -27,6 +27,8 @@ class Ginst::Builder
   private
 
   def self.execute(command)
+    ENV["RAILS_ENV"] = Rails.env rescue "production"
+    
     script = Ginst.root+'/script/builder.rb'
 
     if command == 'status'

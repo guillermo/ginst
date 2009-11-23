@@ -58,6 +58,7 @@ Gem::Specification.new do |s|
      "app/views/status/show.html.erb",
      "app/views/tasks/_task.html.erb",
      "app/views/tasks/_task_command.html.erb",
+     "app/views/tasks/_task_item.html.erb",
      "app/views/tasks/building.html.erb",
      "app/views/tasks/index.html.erb",
      "app/views/tasks/show.html.erb",

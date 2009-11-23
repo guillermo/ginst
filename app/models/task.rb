@@ -73,7 +73,9 @@ class Task < ActiveRecord::Base
     end
   end
   
-  
+  def commit
+    project.commit(commit_sha1)
+  end
   
   class TaskAlreadyRunningException < Exception ; end
   class TaskAlreadyExecuteException < Exception ; end

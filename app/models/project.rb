@@ -162,6 +162,10 @@ class Project < ActiveRecord::Base
     grit_repo.commits(*args)
   end
   
+  def commit(sha1)
+    grit_repo.commit(sha1)
+  end
+  
   def commits_between_dates(from,to)
     grit_repo.commits_between_dates(from,to)
   end

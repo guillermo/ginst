@@ -1,5 +1,10 @@
 <h1>Builder Daemon Status</h1>
-<p><%= @builder_daemon_status %></p>
+<p><%= @builder_daemon_status %>
+<% form_tag('/status', :method => :put) do  %>  
+<%= hidden_field_tag('what', 'restart_builder') %>
+<%= submit_tag 'restart' %>
+<% end  %>
+</p>
 
 <h1>Current plugins</h1>
 <ul>
