@@ -1,29 +1,46 @@
-<% content_tag_for(:li, task, :class=> task.status) do %>
-<pre><%= link_to task.name, project_task_path(@project, task) %></pre>
-  <p><%= simple_format(h(truncate(task.output))) %></p>
-  <dl>
-    <dt>Command:</dt>
-    <dd><%= truncate(task.code,:length => 35) %></dd>
+<% content_tag_for :div, task, :class=> "#{task.status} task" do %>
+  <h1><%= task.name %></h1>
+  <p class="status <%= task.status %>">Build status: <%= task.status %></p>
 
-    <dt>created_at</dt>
-    <dd><%= show_time(task.created_at) %></dd>
-    <dt>started_at</dt>
-    <dd><%= show_time(task.started_at) %></dd>
+  <div class='task_description'>
+  <% if task.prepared? %>
+    <p>This tasks is prepared to be run. Please wait other tasks finish.</p>
+    <pre id="output"><%= task.parsed_output %></pre>
     
-    <dt>ended_At</dt>
-    <dd><%= show_time(task.ended_at) %></dd>
-    
-    <dt>status</dt>
-    <dd><%= task.status %></dd>
-    
-<!--     <dt>output</dt>
-    <dd><pre><code><%= simple_format(task.output) %></code></pre></dd>
-    
-    <dt>exit_code</dt>
-    <dd><%= task.exit_code %></dd> -->
-  </dl>
-  <!-- <% form_for task, :url => project_task_path(task.project, task) do |f| %>
-  <%= f.submit 'ReRun' %>
-  <% end %> -->
-<% end %>
+  <% else  %>
+    <dl>
+      <dt>Started at:</dt>
+      <dd><%= show_time(task.started_at) %></dd>
+  
+    <% if task.building? %>
+      <dt>Elapsed time</dt>
+      <dd class="elapsed_time"><%= show_elapsed(task.build_duration) %></dd>
+      <dt>Pid</dt>
+      <dd><%= task.pid %>
+        <% form_for task, :url => project_task_path(@project,task) do |f| %>  
+        <%= hidden_field_tag :kill, 'INT' %>
+        <%= f.submit 'INT' %>
+        <% end %>
       
+        <% form_for task, :url => project_task_path(@project,task) do |f| %>  
+        <%= hidden_field_tag :kill, 'QUIT' %>
+        <%= f.submit 'QUIT' %>
+        <% end %>
+        
+        <% form_for task, :url => project_task_path(@project,task) do |f| %>  
+        <%= hidden_field_tag :kill, 'KILL' %>
+        <%= f.submit 'QUIT' %>
+        <% end %>
+      
+      </dd>
+    <% else %>  
+      <dt>Ended at:</dt>
+      <dd><%= show_time(task.ended_at) %> 
+        <span><%= show_elapsed(task.build_duration) %></span></dd>
+    <% end %>
+    <%= link_to 'raw', project_task_path(@project,task, 'text'), :class => 'raw_link' %>
+    </dl>
+    <pre id="output"><%= task.parsed_output %></pre>
+  <% end %>
+  </div>
+<% end %>

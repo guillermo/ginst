@@ -1,0 +1,22 @@
+<% content_tag_for(:li, task_item, :class=> "#{task_item.status} ") do %>
+<pre><%= link_to task_item.name, project_task_path(@project, task_item) %></pre>
+  <p><%= simple_format(h(truncate(task_item.output))) %></p>
+  <dl>
+    <dt>Command:</dt>
+    <dd><%= truncate(task_item.code,:length => 35) %></dd>
+
+    <dt>created_at</dt>
+    <dd><%= show_time(task_item.created_at) %></dd>
+    <dt>started_at</dt>
+    <dd><%= show_time(task_item.started_at) %></dd>
+    
+    <dt>ended_At</dt>
+    <dd><%= show_time(task_item.ended_at) %></dd>
+    
+    <dt>status</dt>
+    <dd><%= task_item.status %></dd>
+    
+  </dl>
+
+<% end %>
+      

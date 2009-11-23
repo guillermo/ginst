@@ -4,13 +4,16 @@ class TasksController < ApplicationController
   
   
   def index
-    scope = @project.tasks
-    if params[:scope] && Task.valid_scopes.include?(params[:scope].to_sym)
-      scope = scope.send(params[:scope].to_sym)
+    if Task.valid_scopes.include?(params[:scope].try(:to_sym))
+      scope = @project.tasks
+      if params[:scope] && Task.valid_scopes.include?(params[:scope].to_sym)
+        scope = scope.send(params[:scope].to_sym)
+      end
+    
+      @tasks = scope.all(:order => 'ended_at DESC')
+    else
+      redirect_to :scope => 'prepared'
     end
-    
-    @tasks = scope.all(:order => 'ended_at DESC')
-    
   end
   
   def update
@@ -24,7 +27,6 @@ class TasksController < ApplicationController
   end
   
   def show
-    Task.first
     @task = @project.tasks.find(params[:id])
     
     respond_to do |wants|

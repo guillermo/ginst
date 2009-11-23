@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
   include Slugify
   
-  has_many :tasks, :order => 'system desc, priority ASC'
+  has_many :tasks, :order => 'updated_at desc, system desc, priority ASC'
   delegate :prepared, :to => :tasks, :prefix => :tasks
 
   after_create :create_setup_task

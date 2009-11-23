@@ -1,14 +1,11 @@
+require('daemons')
 
-class Ginst::CLI
-  
-  require('daemons')
-  
+class Ginst::CLI  
   def initialize(argv)    
     parse_args(argv)
   end
   
   def run
-    
     if @install
       install
     elsif @daemon 

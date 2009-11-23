@@ -20,7 +20,7 @@ class Ginst::WebServer
   end
 
   def self.status
-    execute('status')
+    puts execute('status')
   end
 
   def self.run
