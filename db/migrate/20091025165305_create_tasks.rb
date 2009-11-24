@@ -16,7 +16,7 @@ class CreateTasks < ActiveRecord::Migration
       t.datetime :started_at, :ended_at
       t.string :status, :default => 'prepared'
       t.integer :pid
-      t.text :output
+      t.text :output, :limit => 10.megabytes
       t.integer :exit_code
       
       t.timestamps
