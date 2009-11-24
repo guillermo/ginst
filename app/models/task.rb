@@ -86,23 +86,19 @@ class Task < ActiveRecord::Base
   def execute
     raise TaskAlreadyExecuteException if reload[:ended_at]
     raise TaskAlreadyRunningException if reload[:started_at]
-    logger "Executing task #{id} named #{name}"
     status = 'fail'
 
     ObjectSpace.define_finalizer(self,lambda{
       update_attributes(:status => 'fail', :ended_at => Time.current, :exit_code => 66)
     })
     
-    Rails.logger.debug "Running #{name.to_s+' '}task for #{project.slug}"    
     update_attributes(:started_at => Time.current, :status => 'building')
-    
+    logger "Executing task #{id} named #{name}"    
     run!
     run_callbacks!
+    logger "Finished executing tasks"
     
-    status = (exit_code == 0 ? 'success' : 'fail')
-    
-    Rails.logger.debug "Finishing running #{name} task for #{project.slug}"    
-    
+    status = (exit_code == 0 ? 'success' : 'fail')    
   rescue => e
     puts e.inspect
     puts e.backtrace
@@ -116,7 +112,6 @@ class Task < ActiveRecord::Base
     
   class UnknowTaskFormat < Exception ; end
   def run!
-    logger.info("task.run!")
     case
     when ruby_code?
       run_ruby!
