@@ -140,7 +140,7 @@ class Task < ActiveRecord::Base
   
   def run_shell!
     buff = ''
-
+    logger "Running #{code}"
     process_status = Open4.popen4(code) do |pid, stdin, stdout, stderr|
       update_attributes(:pid => pid)
       
@@ -149,21 +149,18 @@ class Task < ActiveRecord::Base
       while ( !inputs.empty? ) do 
         select(inputs).first.each do |input|
           begin
-            read = input.read_nonblock(99999999)
-            logger read
-            buff += read
-            self.update_attribute(:output, buff) if output != buff && Time.now.to_i > updated_at.to_i + DATABASE_UPDATE_INTERVAL
+            buff += input.read_nonblock(99999999)
+            update_attribute(:output, buff) if output != buff && Time.now.to_i > updated_at.to_i + DATABASE_UPDATE_INTERVAL
           rescue EOFError
             logger "EOFError. removing #{stdout == input ? 'stdout' : 'stderr'} input"
             inputs.delete input
           end
         end
       end
+      update_attribute(:output, buff) if output != buff
+      
       
     end
-    logger "Finished popen"
-    Process.wait
-    logger "Really finished command"
     process_status.exitstatus    
   ensure
     self.update_attributes(:output => buff,:pid => nil, :exit_code => (process_status && process_status.exitstatus))

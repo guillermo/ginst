@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ginst}
-  s.version = "2009.11.23"
+  s.version = "2009.11.24"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Guillermo \303\201lvarez Fern\303\241ndez"]
