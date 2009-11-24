@@ -23,6 +23,8 @@ class Task < ActiveRecord::Base
   
   named_scope :fetch_tasks, {:conditions => {:name => 'fetch.sh'}}
   
+  delegate :logger, :to => :project
+  
   def self.valid_scopes
     [:prepared,:building,:fail,:success,:finished]
   end
@@ -54,6 +56,7 @@ class Task < ActiveRecord::Base
   
   
   def kill(signal = 'INT')
+    logger "Recived kill signal #{signal} for task #{id}"
     return nil unless pid
     pids = Sys::ProcTable.ps.find_all{|p| p.ppid == pid || p.pid == pid }.map{|p| p.pid}
     pids.each{ |pid| Process.kill(signal,pid) }
@@ -83,6 +86,7 @@ class Task < ActiveRecord::Base
   def execute
     raise TaskAlreadyExecuteException if reload[:ended_at]
     raise TaskAlreadyRunningException if reload[:started_at]
+    logger "Executing task #{id} named #{name}"
     status = 'fail'
 
     ObjectSpace.define_finalizer(self,lambda{
@@ -150,16 +154,22 @@ class Task < ActiveRecord::Base
       while ( !inputs.empty? ) do 
         select(inputs).first.each do |input|
           begin
-            buff +=input.read_nonblock(9999999)
+            read = input.read_nonblock(99999999)
+            logger read
+            buff += read
             self.update_attribute(:output, buff) if output != buff && Time.now.to_i > updated_at.to_i + DATABASE_UPDATE_INTERVAL
           rescue EOFError
+            logger "EOFError. removing #{stdout == input ? 'stdout' : 'stderr'} input"
             inputs.delete input
           end
         end
       end
       
     end
-    process_status.exitstatus
+    logger "Finished popen"
+    Process.wait
+    logger "Really finished command"
+    process_status.exitstatus    
   ensure
     self.update_attributes(:output => buff,:pid => nil, :exit_code => (process_status && process_status.exitstatus))
   end

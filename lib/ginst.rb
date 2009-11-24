@@ -18,6 +18,7 @@ module Ginst
   autoload(:CLI, 'ginst/cli')
   autoload(:WebServer, 'ginst/web_server')
   autoload(:Console, 'ginst/console')
+  autoload(:Logger, 'ginst/logger')
   
   def self.data_dir
     return @@data_dir if @@data_dir
@@ -33,7 +34,7 @@ module Ginst
     @@root
   end
   
-  VERSION = File.read(root+'/VERSION')
+  VERSION = File.read(root+'/VERSION').strip
 end
 
 # Add vendorized gems to load path

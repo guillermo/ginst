@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
   has_many :tasks, :order => 'updated_at desc, system desc, priority ASC'
   delegate :prepared, :to => :tasks, :prefix => :tasks
 
-  after_create :create_setup_task
+  after_create :log_create, :create_setup_task
   before_create :create_secret
   
   validates_presence_of :name, :repo
@@ -24,8 +24,12 @@ class Project < ActiveRecord::Base
     status == 'building'
   end
   
+  def log_create
+    logger "#{name} project created for #{repo}"
+  end
 
   def run_tasks!    
+    logger "Running tasks"
     if !:locked_at || !tasks_prepared.empty?
       update_attribute(:locked_at, Time.current)
 
@@ -40,10 +44,13 @@ class Project < ActiveRecord::Base
   
   
   def create_fetch_task
+    logger "creating fetch task"
     current_fetch_task = tasks.unfinished.fetch_tasks.first
+    
+    # Don't create another if one exists
     return current_fetch_task if current_fetch_task
     
-    Rails.logger.debug "[#{Time.current.to_s(:small)}] * Creating repo for #{name}"
+    Rails.logger.debug "[#{Time.current.to_s(:small)}] * Creating fetch task for #{name}"
 
     command = "cd #{local_repo_dir}
     git fetch -fv origin
@@ -57,20 +64,17 @@ class Project < ActiveRecord::Base
     )
   end
   
+  # call after fetch, to check if new commits exists
   def process_new_heads
-    preferences.branch_status ||= {}
     #look for changes in heads
     branchs.each do |branch|
-      unless (branch.commit.id == preferences.branch_status[branch.name])
+      unless tasks.find_by_commit_sha1(branch.commit.id)
         process_new_head(branch)
-        preferences.branch_status[branch.name] = branch.commit.id
-        save
       end
     end
   end
   
   def process_new_head(branch)
-    logger.info("Processing new commit for #{branch.name}, #{branch.commit.id} ")
     plugins.each do |plugin|
       plugin.on_commit(self, branch) if plugin.respond_to? :on_commit
     end
@@ -81,8 +85,7 @@ class Project < ActiveRecord::Base
   end
   
   def create_setup_task
-    Rails.logger.debug "[#{Time.current.to_s(:small)}] * Creating repo for #{name}"
-
+    logger "created setup task"
     command = "
     echo removing previous repo
     rm -Rf #{local_repo_dir}
@@ -101,13 +104,13 @@ class Project < ActiveRecord::Base
       :on_success => "p = Project.find(#{id}) ; p.set_default_tracking_branchs ; p.update_attribute(:status, 'prepared') "
     )  
   end
-    
-    
-      
+  
+  
   def to_param
     slug
   end
-    
+  
+  
   def grit_repo
     @grit_repo || Grit::Repo.new(local_repo_dir)
   rescue Grit::NoSuchPathError
@@ -196,5 +199,21 @@ class Project < ActiveRecord::Base
     Array.new(8).map{ keys[rand(keys.size)] }.join
   end
   
+  
+  def log_file
+    Ginst.data_dir+"/log/#{slug}.log"
+  end
+  
+  
+  def logger(msg = nil)
+    if msg
+      logger.log(msg, caller)
+    else
+      @logger ||= Ginst::Logger.new(log_file)
+    end
+  end
+
+  
+    
 end
 

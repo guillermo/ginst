@@ -2,6 +2,7 @@
 	http://localhost:3000/stylesheets/screen.css
 	http://dev.jobandtalent.com/stylesheets/screen.css
 	http://dev.jobandtalent.com:9999/stylesheets/screen.css
+	http://ci.jobandtalent.com/stylesheets/screen.css
 */
 
 /* @group Reset */
@@ -384,6 +385,10 @@ div.task h1 {
   color: white;
   background: black;
   padding: 1em;
+  font-family: fixed;
+  letter-spacing: -0.2em;
+  font-size: 12px;
+  line-height: 12px;
 }
 
 .task_description a.raw_link {
