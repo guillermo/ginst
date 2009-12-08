@@ -43,15 +43,15 @@ ActiveRecord::Schema.define(:version => 20091025165330) do
     t.integer  "project_id"
     t.string   "commit_sha1"
     t.text     "code"
-    t.integer  "priority",    :default => 20
+    t.integer  "priority",                          :default => 20
     t.text     "on_success"
     t.text     "on_failure"
-    t.boolean  "system",      :default => false
+    t.boolean  "system",                            :default => false
     t.datetime "started_at"
     t.datetime "ended_at"
-    t.string   "status",      :default => "prepared"
+    t.string   "status",                            :default => "prepared"
     t.integer  "pid"
-    t.text     "output"
+    t.text     "output",      :limit => 2147483647
     t.integer  "exit_code"
     t.datetime "created_at"
     t.datetime "updated_at"

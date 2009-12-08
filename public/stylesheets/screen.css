@@ -482,3 +482,47 @@ p.status.fail {
 }
 
 /* @end */
+
+/* @group SimpleBuild */
+
+.new_simple_build input {
+	border: 0.1em outset rgb(190, 220, 231);
+	-moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+    background-color:darksalmon ;
+    float: right;
+    padding: 0.5em 0.8em;
+    margin-top: -1.9em;
+    margin-bottom: -2em;
+}
+
+
+/* @end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

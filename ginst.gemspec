@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ginst}
-  s.version = "2009.11.24"
+  s.version = "2009.12.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Guillermo \303\201lvarez Fern\303\241ndez"]
-  s.date = %q{2009-11-24}
+  s.date = %q{2009-12-08}
   s.default_executable = %q{ginst}
   s.description = %q{GINST is the new integration system}
   s.email = %q{guillermo@cientifico.net}
